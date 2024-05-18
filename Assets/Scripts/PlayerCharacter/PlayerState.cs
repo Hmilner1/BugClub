@@ -10,8 +10,6 @@ public class PlayerState : MonoBehaviour
     [SerializeField]
     private GameObject battlePositions;
     [SerializeField]
-    private SpriteRenderer playerBugSprite;
-    [SerializeField]
     private SpriteRenderer enemyPos;
 
     private enum PlayerStates
@@ -52,15 +50,13 @@ public class PlayerState : MonoBehaviour
         }
     }
 
-    private void BattleMode()
+    private void BattleMode(bool wild)
     {
         currentState = PlayerStates.battle;
         EventManager.instance.StopMovement();
         EventManager.instance.OpenBattleCanvas();
-        playerBugSprite.sprite = BugBox.instance.FindBugModel(BugBox.instance.playerBugTeam[0].baseBugIndex, false);
         battleCam.SetActive(true);
         battlePositions.SetActive(true);
-
     }
 
     private void OverWorld()

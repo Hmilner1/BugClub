@@ -20,7 +20,7 @@ public class EncounterCalculator : MonoBehaviour
 
         if (Random.Range(1, 100) <= 15)
         {
-            EventManager.instance.Battle();
+            EventManager.instance.BattleStart(true);
         }
     }
 

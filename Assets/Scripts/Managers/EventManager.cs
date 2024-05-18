@@ -19,10 +19,13 @@ public class EventManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public class Battle : UnityEvent<bool>
+    { 
+    }
 
     #region Player Events
     public UnityEvent OnStep;
-    public UnityEvent OnBattle;
+    public Battle OnBattle = new Battle();
     public UnityEvent OnOverWorld;
     public UnityEvent OnStopMovement;
     public UnityEvent OnStartMovement;
@@ -39,9 +42,9 @@ public class EventManager : MonoBehaviour
         OnStep?.Invoke();
     }
 
-    public void Battle()
+    public void BattleStart(bool wild)
     {
-        OnBattle?.Invoke();
+        OnBattle?.Invoke(wild);
     }
 
     public void OverWorld()

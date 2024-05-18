@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BugBox : MonoBehaviour
 {
@@ -12,6 +14,14 @@ public class BugBox : MonoBehaviour
 
     [SerializeField]
     private BugDataBase bugDataBase;
+    [SerializeField]
+    private Sprite DPSImage;
+    [SerializeField]
+    private Sprite tankImage;
+    [SerializeField]
+    private Sprite supportImage;
+
+    private Bug currentWildBug;
 
     private void Awake()
     {
@@ -74,6 +84,7 @@ public class BugBox : MonoBehaviour
     {
         allownedBugs.Add(newBug);
         SaveBugData();
+        EventManager.instance.OverWorld();
     }
 
     public void LoadParty()
@@ -92,6 +103,35 @@ public class BugBox : MonoBehaviour
         return allownedBugs[0];
     }
 
+    public Sprite GetClassUI(BugClass bugClass)
+    { 
+        switch (bugClass)
+        {
+            case BugClass.DPS:
+                return DPSImage;
+              
+            case BugClass.Support:
+                return supportImage;
+            case BugClass.Tank:
+                return tankImage;
+        }
+        return DPSImage;
+    }
+    public Bug GetWildBug()
+    { 
+        if (currentWildBug == null) 
+        {
+            Bug errorBug = new Bug(0, 1, BugClass.Tank);
+            return errorBug;
+        }
+        
+        return currentWildBug;}
+
+    public void ChangeCurrentWildBug(Bug bug)
+    {
+        currentWildBug = bug;
+    }
+
     public void LoadBugSaveData()
     { 
         bugData = LocalSaveManager.LoadBugs();
@@ -107,5 +147,6 @@ public class BugBox : MonoBehaviour
         bugData.PlaysOwnedBugs = allownedBugs;
         LocalSaveManager.SaveBugData(bugData);
     }
+
 
 }

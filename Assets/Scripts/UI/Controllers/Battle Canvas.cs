@@ -15,6 +15,8 @@ public class BattleCanvas : MonoBehaviour
     private Slider playerHpSlider;
     [SerializeField]
     private SpriteRenderer playerBugSprite;
+    [SerializeField]
+    private Image playerBugClass;
 
     [SerializeField]
     private TMP_Text enemyName;
@@ -24,6 +26,8 @@ public class BattleCanvas : MonoBehaviour
     private Slider enemyHpSlider;
     [SerializeField]
     private SpriteRenderer enemyBugSprite;
+    [SerializeField]
+    private Image enemyBugClass;
 
     private void OnEnable()
     {
@@ -41,6 +45,7 @@ public class BattleCanvas : MonoBehaviour
     private void OpenCanvas()
     {
         UpdatePlayerInfo();
+        UpdateEnemyInfo();
         battleCanvas.enabled = true;
     }
 
@@ -56,13 +61,24 @@ public class BattleCanvas : MonoBehaviour
         playerName.text = BugBox.instance.GetBugName(BugBox.instance.playerBugTeam[0].baseBugIndex);
         playerLvl.text = "Lvl " + BugBox.instance.playerBugTeam[0].lvl.ToString();
         playerHpSlider.maxValue = activeBug.HP;
+        playerHpSlider.value = activeBug.HP;
+        playerBugClass.sprite = BugBox.instance.GetClassUI(activeBug.bugClass);
     }
 
-    private void UpdateEnemyInfo(Bug EnemyBug)
+    private void UpdateEnemyInfo()
     {
-        enemyBugSprite.sprite = BugBox.instance.FindBugModel(EnemyBug.baseBugIndex, true);
-        enemyName.text = BugBox.instance.GetBugName(EnemyBug.baseBugIndex);
-        enemyLvl.text = "Lvl " + EnemyBug.lvl.ToString();
-        enemyHpSlider.maxValue = EnemyBug.HP;
+        Bug enemyBug = BugBox.instance.GetWildBug();
+
+        enemyBugSprite.sprite = BugBox.instance.FindBugModel(enemyBug.baseBugIndex, true);
+        enemyName.text = BugBox.instance.GetBugName(enemyBug.baseBugIndex);
+        enemyLvl.text = "Lvl " + enemyBug.lvl.ToString();
+        enemyHpSlider.maxValue = enemyBug.HP;
+        enemyHpSlider.value = enemyBug.HP;
+        enemyBugClass.sprite = BugBox.instance.GetClassUI(enemyBug.bugClass);
+    }
+
+    public void CatchCurrentBug()
+    {
+        BugBox.instance.AddNewBug(BugBox.instance.GetWildBug());
     }
 }
