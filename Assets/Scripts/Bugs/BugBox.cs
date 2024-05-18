@@ -6,7 +6,8 @@ public class BugBox : MonoBehaviour
 {
     public static BugBox instance;
 
-    public BugBoxData bugData;
+    private BugBoxData bugData;
+    public List<Bug> allownedBugs;
     public Bug[] playerBugTeam;
 
     [SerializeField]
@@ -70,8 +71,8 @@ public class BugBox : MonoBehaviour
     }
 
     public void AddNewBug(Bug newBug)
-    { 
-        bugData.PlaysOwnedBugs.Add(newBug);
+    {
+        allownedBugs.Add(newBug);
         SaveBugData();
     }
 
@@ -81,18 +82,29 @@ public class BugBox : MonoBehaviour
         playerBugTeam = new Bug[3];
         for (int i = 0; i < 3; i++)
         {
-            if (bugData.PlaysOwnedBugs[i] == null) { return; }
-            playerBugTeam[i] = bugData.PlaysOwnedBugs[i];
+            if (allownedBugs[i] == null) { return; }
+            playerBugTeam[i] = allownedBugs[i];
         }
+    }
+
+    public Bug GetActiveBug()
+    { 
+        return allownedBugs[0];
     }
 
     public void LoadBugSaveData()
     { 
         bugData = LocalSaveManager.LoadBugs();
+        foreach (Bug bugs in bugData.PlaysOwnedBugs)
+        {
+            Bug newBug = new Bug(bugs.baseBugIndex,bugs.lvl,bugs.bugClass);
+            allownedBugs.Add(newBug);
+        }
     }
 
     public void SaveBugData()
-    { 
+    {
+        bugData.PlaysOwnedBugs = allownedBugs;
         LocalSaveManager.SaveBugData(bugData);
     }
 

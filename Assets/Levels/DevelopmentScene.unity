@@ -325,8 +325,8 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 291870121}
-  - {fileID: 1611007888}
   - {fileID: 73613535}
+  - {fileID: 1611007888}
   m_Father: {fileID: 1094102953}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -5033,8 +5033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e026c82b4c33184480120c9c7a1fcb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bugData:
-    PlaysOwnedBugs: []
+  allownedBugs: []
   playerBugTeam: []
   bugDataBase: {fileID: 11400000, guid: e4fc6faaffa801447a43b227be07ab28, type: 2}
 --- !u!4 &147532017
@@ -55047,6 +55046,12 @@ MonoBehaviour:
   battleCanvas: {fileID: 1819205998}
   playerName: {fileID: 1866663340}
   playerLvl: {fileID: 994896415}
+  playerHpSlider: {fileID: 57696671}
+  playerBugSprite: {fileID: 1084528367}
+  enemyName: {fileID: 0}
+  enemyLvl: {fileID: 0}
+  enemyHpSlider: {fileID: 0}
+  enemyBugSprite: {fileID: 0}
 --- !u!1001 &1820397685
 PrefabInstance:
   m_ObjectHideFlags: 0

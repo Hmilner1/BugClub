@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleCanvas : MonoBehaviour
 {
@@ -10,6 +11,19 @@ public class BattleCanvas : MonoBehaviour
     private TMP_Text playerName;
     [SerializeField]
     private TMP_Text playerLvl;
+    [SerializeField]
+    private Slider playerHpSlider;
+    [SerializeField]
+    private SpriteRenderer playerBugSprite;
+
+    [SerializeField]
+    private TMP_Text enemyName;
+    [SerializeField]
+    private TMP_Text enemyLvl;
+    [SerializeField]
+    private Slider enemyHpSlider;
+    [SerializeField]
+    private SpriteRenderer enemyBugSprite;
 
     private void OnEnable()
     {
@@ -37,7 +51,18 @@ public class BattleCanvas : MonoBehaviour
 
     private void UpdatePlayerInfo()
     {
+        Bug activeBug = BugBox.instance.GetActiveBug();
+        playerBugSprite.sprite = BugBox.instance.FindBugModel(BugBox.instance.playerBugTeam[0].baseBugIndex, false);
         playerName.text = BugBox.instance.GetBugName(BugBox.instance.playerBugTeam[0].baseBugIndex);
         playerLvl.text = "Lvl " + BugBox.instance.playerBugTeam[0].lvl.ToString();
+        playerHpSlider.maxValue = activeBug.HP;
+    }
+
+    private void UpdateEnemyInfo(Bug EnemyBug)
+    {
+        enemyBugSprite.sprite = BugBox.instance.FindBugModel(EnemyBug.baseBugIndex, true);
+        enemyName.text = BugBox.instance.GetBugName(EnemyBug.baseBugIndex);
+        enemyLvl.text = "Lvl " + EnemyBug.lvl.ToString();
+        enemyHpSlider.maxValue = EnemyBug.HP;
     }
 }
