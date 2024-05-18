@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.InputSystem.LowLevel;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,24 +14,33 @@ public class PlayerController : MonoBehaviour
     private float currentVelocity;
     private Vector2 input;
     private Vector3 direction;
+    private bool canMove;
 
     public Animator m_Animator;
     public InputSystem_Actions playerControls;
 
     private void Awake()
     {
+        Application.targetFrameRate = 120;
         characterController = GetComponent<CharacterController>();
         playerControls = new InputSystem_Actions();
+        canMove = true;
     }
 
     private void OnEnable()
     {
         playerControls.Enable();
+        EventManager.instance.OnStopMovement.AddListener(DisableMovement);
+        EventManager.instance.OnStartMovement.AddListener(EnableMovement);
+
     }
 
     private void OnDisable()
     {
         playerControls.Disable();
+        EventManager.instance.OnStopMovement.RemoveListener(DisableMovement);
+        EventManager.instance.OnStartMovement.AddListener(EnableMovement);
+
     }
 
     void Update()
@@ -39,8 +48,24 @@ public class PlayerController : MonoBehaviour
         Movement();
     }
 
+    private void DisableMovement()
+    {
+
+        canMove = false;
+        m_Animator.SetBool("IsWalking", false);
+        m_Animator.SetFloat("Velocity", 0);
+
+    }
+
+    private void EnableMovement()
+    {
+        canMove = true;
+    }
+
     void Movement()
     {
+        if (!canMove) { return; }
+
         input = playerControls.Player.Move.ReadValue<Vector2>();
         direction = new Vector3(input.x, -1, input.y);
         if (input.sqrMagnitude == 0)
@@ -57,5 +82,6 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
 
         characterController.Move(direction * speed * Time.deltaTime);
+
     }
 }

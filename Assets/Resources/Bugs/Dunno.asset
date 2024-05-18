@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc02b8b7025e8044c9b1f7d54a06e929, type: 3}
-  m_Name: Cheek
+  m_Name: Dunno
   m_EditorClassIdentifier: 
-  bugName: CHEEK
-  hp: 45
-  attack: 50
-  spAttack: 75
+  bugName: DUNNO
+  hp: 55
+  attack: 55
+  spAttack: 85
   defence: 55
-  spDefence: 65
+  spDefence: 55
   speed: 30
-  frontSprite: {fileID: 21300000, guid: 7ee10f5eaf8c6194d96f5cdb44b84169, type: 3}
-  backSprite: {fileID: 21300000, guid: 6961483845943b2499a704fe37a54838, type: 3}
-  description: This thing appears to be a rather cheeky leek :3
+  frontSprite: {fileID: 21300000, guid: 8f4d751f2ea35bb47b70b4f8404c0902, type: 3}
+  backSprite: {fileID: 21300000, guid: a7b274709a7987c418898bab3efe0502, type: 3}
+  description: opk spoij pops oink!!

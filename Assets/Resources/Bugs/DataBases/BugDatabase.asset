@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bugDataBase:
   - {fileID: 11400000, guid: 9683aee37b5092a4182f0e441801c170, type: 2}
+  - {fileID: 11400000, guid: e868d7e7cda9f7547bf01d37a7e1d3c8, type: 2}
+  - {fileID: 11400000, guid: 879fb5fec6c8b5a40acd1d16bd75dfb2, type: 2}

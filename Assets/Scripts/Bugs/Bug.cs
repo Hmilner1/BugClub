@@ -1,15 +1,16 @@
+using System;
 using UnityEngine;
 
+[Serializable]
 public class Bug
 {
-    public BugDataBase dataBase;
+    private BugDataBase dataBase = Resources.Load<BugDataBase>("Bugs/DataBases/BugDatabase");
     public int baseBugIndex;
     public int lvl;
     public BugClass bugClass;
 
-    public  Bug(int bugIndex, int currentLvl, BugClass Class, BugDataBase data)
+    public  Bug(int bugIndex, int currentLvl, BugClass Class)
     {
-        dataBase = data;
         baseBugIndex = bugIndex;
         lvl = currentLvl;
         bugClass = Class;
@@ -44,6 +45,7 @@ public class Bug
     {
         get { return Mathf.FloorToInt((dataBase.bugDataBase[baseBugIndex].speed * lvl) / 100f) + 5; }
     }
+
 }
 
 
