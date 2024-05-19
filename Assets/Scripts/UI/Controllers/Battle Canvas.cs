@@ -71,7 +71,7 @@ public class BattleCanvas : MonoBehaviour
     private void UpdatePlayerInfo()
     {
         Bug activeBug = PartyManager.instance.playerBugTeam[0];
-        playerBugSprite.sprite = BugBox.instance.FindBugModel(activeBug.baseBugIndex, false);
+        playerBugSprite.sprite = BugBox.instance.getBugModel(activeBug.baseBugIndex, false);
         playerName.text = BugBox.instance.GetBugName(activeBug.baseBugIndex);
         playerLvl.text = "Lvl " + activeBug.lvl.ToString();
         playerHpSlider.maxValue = activeBug.HP;
@@ -83,7 +83,7 @@ public class BattleCanvas : MonoBehaviour
     {
         Bug enemyBug = BugBox.instance.GetWildBug();
 
-        enemyBugSprite.sprite = BugBox.instance.FindBugModel(enemyBug.baseBugIndex, true);
+        enemyBugSprite.sprite = BugBox.instance.getBugModel(enemyBug.baseBugIndex, true);
         enemyName.text = BugBox.instance.GetBugName(enemyBug.baseBugIndex);
         enemyLvl.text = "Lvl " + enemyBug.lvl.ToString();
         enemyHpSlider.maxValue = enemyBug.HP;

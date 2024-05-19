@@ -34,6 +34,7 @@ public class EventManager : MonoBehaviour
     #region UI Events
     public UnityEvent OnOpenBattleCanvas;
     public UnityEvent OnCloseBattleCanvas;
+    public UnityEvent OnRefreshParty;
 
     #endregion
 
@@ -69,5 +70,10 @@ public class EventManager : MonoBehaviour
     public void CloseBattleCanvas()
     {
         OnCloseBattleCanvas?.Invoke();
+    }
+
+    public void RefreshParty()
+    { 
+        OnRefreshParty?.Invoke();
     }
 }

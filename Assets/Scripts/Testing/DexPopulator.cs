@@ -19,7 +19,7 @@ public class DexPopulator : MonoBehaviour
 
     private void Start()
     {
-        bugImage.sprite = BugBox.instance.FindBugModel(index, true);
+        bugImage.sprite = BugBox.instance.getBugModel(index, true);
         bugName.text = BugBox.instance.GetBugName(index);
         bugDescription.text = BugBox.instance.GetBugDesc(index);
     }

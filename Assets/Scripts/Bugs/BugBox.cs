@@ -51,7 +51,7 @@ public class BugBox : MonoBehaviour
         }
     }
 
-    public Sprite FindBugModel(int bugIndex, bool front)
+    public Sprite getBugModel(int bugIndex, bool front)
     {
         if (front)
         { 
@@ -85,7 +85,7 @@ public class BugBox : MonoBehaviour
     public void LoadParty(Bug[] party)
     {
         if (allownedBugs == null) { return; }
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             if (allownedBugs[i] == null) { return; }
             Bug newBug = new Bug(allownedBugs[i].baseBugIndex, allownedBugs[i].lvl, allownedBugs[i].bugClass);
