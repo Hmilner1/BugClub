@@ -13,7 +13,7 @@ public class BattleItem
         itemIndex = indexNumber;
     }
 
-    public string Name { get { return dataBase.battleItemDataBase[itemIndex].name; } }
+    public string Name { get { return dataBase.battleItemDataBase[itemIndex].itemName; } }
     
  
 

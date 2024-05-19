@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +10,8 @@ public class PartyMemberTab : MonoBehaviour
     [SerializeField]
     private UnityEngine.UI.Image bugSprite;
     [SerializeField]
-    private Dropdown[] moves = new Dropdown[4];
+    private TMP_Dropdown[] moves = new TMP_Dropdown[4];
+   
     
     [SerializeField]
     private int partyIndex;
@@ -29,20 +31,30 @@ public class PartyMemberTab : MonoBehaviour
     {
         bugSprite.sprite = BugBox.instance.getBugModel(PartyManager.instance.playerBugTeam[partyIndex].baseBugIndex,true);
         PopulateMoves();
+        SetMoveValue();
     }
 
     private void PopulateMoves()
     {
-        List<BattleItem> items = new List<BattleItem>();
-        items = PartyManager.instance.playerBugTeam[partyIndex].equipableItems;
         foreach (var dropBox in moves)
         {
+            List<BattleItem> items = new List<BattleItem>();
+            items = PartyManager.instance.playerBugTeam[partyIndex].equipableItems;
             for (int i = 0; i < items.Count; i++)
             {
-                Dropdown.OptionData data = new Dropdown.OptionData();
+                TMP_Dropdown.OptionData data = new TMP_Dropdown.OptionData();
                 dropBox.options.Add(data);
                 dropBox.options[i].text = items[i].Name;
             }
+        }
+    }
+
+    private void SetMoveValue()
+    {
+        for (int i = 0; i < moves.Length; i++)
+        {
+            moves[i].value = 0;
+            moves[i].RefreshShownValue();
         }
     }
 }

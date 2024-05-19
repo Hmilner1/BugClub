@@ -4,18 +4,30 @@ public class MoveParty : MonoBehaviour
 {
     [SerializeField]
     private int partyIndex;
-    [SerializeField]
-    private bool isUp;
 
-    public void MoveUp()
-    { 
+
+    public void MoveBug(bool isUp)
+    {
+        if (isUp)
+        {
+            MoveUp();
+        }
+        else
+        {
+            MoveDown();
+        }
     
     }
 
-    public void MoveDown()
-    { 
-    
+    private void MoveUp()
+    {
+        PartyManager.instance.PartySwap(partyIndex,partyIndex-1);
+        EventManager.instance.RefreshParty();
     }
 
-  
+    private void MoveDown()
+    { 
+        PartyManager.instance.PartySwap(partyIndex,partyIndex+1);
+        EventManager.instance.RefreshParty();
+    }
 }

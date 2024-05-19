@@ -66,7 +66,6 @@ public class Bug
     }
 }
 
-
 public enum BugClass
 { 
     Tank,

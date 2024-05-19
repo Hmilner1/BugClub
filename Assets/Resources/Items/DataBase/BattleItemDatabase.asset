@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: BattleItemDatabase
   m_EditorClassIdentifier: 
   battleItemDataBase:
+  - {fileID: 11400000, guid: 3172f8078473eb744a315af77fd1170c, type: 2}
+  - {fileID: 11400000, guid: 288f14cad4a6e2a488b9a6a8832e44a6, type: 2}
+  - {fileID: 11400000, guid: 21c4d410d2342384080a2be69a10d990, type: 2}
   - {fileID: 11400000, guid: abd87b5c52a47f14198f6a69eef1e01c, type: 2}
   - {fileID: 11400000, guid: 7da79c1de48a5ac4caaceb4ff0b299a2, type: 2}
+  - {fileID: 11400000, guid: 33ef062266fadaa47b2109b28e2984b5, type: 2}
