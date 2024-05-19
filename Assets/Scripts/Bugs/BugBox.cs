@@ -10,7 +10,6 @@ public class BugBox : MonoBehaviour
 
     private BugBoxData bugData;
     public List<Bug> allownedBugs;
-    public Bug[] playerBugTeam;
 
     [SerializeField]
     private BugDataBase bugDataBase;
@@ -35,12 +34,8 @@ public class BugBox : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
 
-    private void Start()
-    {
         LoadBugSaveData();
-        LoadParty();
     }
 
     private void Update()
@@ -87,14 +82,14 @@ public class BugBox : MonoBehaviour
         EventManager.instance.OverWorld();
     }
 
-    public void LoadParty()
+    public void LoadParty(Bug[] party)
     {
-        if (bugData == null) { return; }
-        playerBugTeam = new Bug[3];
+        if (allownedBugs == null) { return; }
         for (int i = 0; i < 3; i++)
         {
             if (allownedBugs[i] == null) { return; }
-            playerBugTeam[i] = allownedBugs[i];
+            Bug newBug = new Bug(allownedBugs[i].baseBugIndex, allownedBugs[i].lvl, allownedBugs[i].bugClass);
+            party[i] = newBug;
         }
     }
 
@@ -117,6 +112,7 @@ public class BugBox : MonoBehaviour
         }
         return DPSImage;
     }
+
     public Bug GetWildBug()
     { 
         if (currentWildBug == null) 
@@ -147,6 +143,4 @@ public class BugBox : MonoBehaviour
         bugData.PlaysOwnedBugs = allownedBugs;
         LocalSaveManager.SaveBugData(bugData);
     }
-
-
 }

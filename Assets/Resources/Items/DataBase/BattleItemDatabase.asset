@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleItemDataBase:
   - {fileID: 11400000, guid: abd87b5c52a47f14198f6a69eef1e01c, type: 2}
+  - {fileID: 11400000, guid: 7da79c1de48a5ac4caaceb4ff0b299a2, type: 2}

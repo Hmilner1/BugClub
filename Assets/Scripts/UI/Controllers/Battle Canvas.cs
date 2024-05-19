@@ -1,4 +1,6 @@
+using System;
 using TMPro;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +31,8 @@ public class BattleCanvas : MonoBehaviour
     [SerializeField]
     private Image enemyBugClass;
 
+    private int currentHealth;
+
     private void OnEnable()
     {
         EventManager.instance.OnOpenBattleCanvas.AddListener(OpenCanvas);
@@ -46,6 +50,7 @@ public class BattleCanvas : MonoBehaviour
     {
         UpdatePlayerInfo();
         UpdateEnemyInfo();
+        currentHealth = (int)enemyHpSlider.maxValue;
         battleCanvas.enabled = true;
     }
 
@@ -54,12 +59,21 @@ public class BattleCanvas : MonoBehaviour
         battleCanvas.enabled = false;
     }
 
+    private void Update()
+    {
+        UpdateHealthBar(enemyHpSlider);
+        if (enemyHpSlider.value <= 0)
+        {
+            EventManager.instance.OverWorld();
+        }
+    }
+
     private void UpdatePlayerInfo()
     {
-        Bug activeBug = BugBox.instance.GetActiveBug();
-        playerBugSprite.sprite = BugBox.instance.FindBugModel(BugBox.instance.playerBugTeam[0].baseBugIndex, false);
-        playerName.text = BugBox.instance.GetBugName(BugBox.instance.playerBugTeam[0].baseBugIndex);
-        playerLvl.text = "Lvl " + BugBox.instance.playerBugTeam[0].lvl.ToString();
+        Bug activeBug = PartyManager.instance.playerBugTeam[0];
+        playerBugSprite.sprite = BugBox.instance.FindBugModel(activeBug.baseBugIndex, false);
+        playerName.text = BugBox.instance.GetBugName(activeBug.baseBugIndex);
+        playerLvl.text = "Lvl " + activeBug.lvl.ToString();
         playerHpSlider.maxValue = activeBug.HP;
         playerHpSlider.value = activeBug.HP;
         playerBugClass.sprite = BugBox.instance.GetClassUI(activeBug.bugClass);
@@ -80,5 +94,18 @@ public class BattleCanvas : MonoBehaviour
     public void CatchCurrentBug()
     {
         BugBox.instance.AddNewBug(BugBox.instance.GetWildBug());
+    }
+
+    public void AttackBug(int Amount)
+    {
+        currentHealth = currentHealth - Amount;
+
+    }
+
+    private void UpdateHealthBar(Slider Healthbar)
+    {
+        int start = (int)Healthbar.value;
+        Healthbar.value = Mathf.Lerp(start, currentHealth, .2f*Time.deltaTime);
+
     }
 }
