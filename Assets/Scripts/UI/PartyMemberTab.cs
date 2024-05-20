@@ -63,6 +63,11 @@ public class PartyMemberTab : MonoBehaviour
         }
     }
 
+    public void OnDropValueChanged()
+    { 
+        
+    }
+
     private void ManageButtons()
     {
         if (partyIndex == 0)

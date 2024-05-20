@@ -8,8 +8,6 @@ public class PartyManager : MonoBehaviour
 
     [SerializeField]
     private List<Bug> PlayerBugTeam = new List<Bug>();
-
-
     public List<Bug> playerBugTeam { get { return PlayerBugTeam; } protected set { PlayerBugTeam = value; }}
 
     private void Awake()
