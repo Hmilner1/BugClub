@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PartyManager : MonoBehaviour
@@ -6,9 +7,10 @@ public class PartyManager : MonoBehaviour
     public static PartyManager instance;
 
     [SerializeField]
-    private Bug[] PlayerBugTeam = new Bug[4];
+    private List<Bug> PlayerBugTeam = new List<Bug>();
 
-    public Bug[] playerBugTeam { get { return PlayerBugTeam; } protected set { PlayerBugTeam = value; }}
+
+    public List<Bug> playerBugTeam { get { return PlayerBugTeam; } protected set { PlayerBugTeam = value; }}
 
     private void Awake()
     {
@@ -38,7 +40,7 @@ public class PartyManager : MonoBehaviour
     }
     private void GetTeamFromSave()
     {
-        playerBugTeam = new Bug[4];
+        playerBugTeam = new List<Bug>();
         BugBox.instance.LoadParty(playerBugTeam);
         EventManager.instance.RefreshParty();
     }

@@ -9,7 +9,7 @@ public class BugBox : MonoBehaviour
     public static BugBox instance;
 
     private BugBoxData bugData;
-    public List<Bug> allownedBugs;
+    public List<Bug> allownedBugs = new List<Bug>();
 
     [SerializeField]
     private BugDataBase bugDataBase;
@@ -37,6 +37,7 @@ public class BugBox : MonoBehaviour
 
         LoadBugSaveData();
     }
+
 
     private void Update()
     {
@@ -82,14 +83,24 @@ public class BugBox : MonoBehaviour
         EventManager.instance.OverWorld();
     }
 
-    public void LoadParty(Bug[] party)
+    public void LoadParty(List<Bug> party)
     {
-        if (allownedBugs == null) { return; }
-        for (int i = 0; i < 4; i++)
+        if (allownedBugs.Count == 0) { return; }
+        if (allownedBugs.Count < 4)
         {
-            if (allownedBugs[i] == null) { return; }
-            Bug newBug = new Bug(allownedBugs[i].baseBugIndex, allownedBugs[i].lvl, allownedBugs[i].bugClass);
-            party[i] = newBug;
+            for (int i = 0; i < allownedBugs.Count; i++)
+            {
+                Bug newBug = new Bug(allownedBugs[i].baseBugIndex, allownedBugs[i].lvl, allownedBugs[i].bugClass, allownedBugs[i].equippedItems);
+                party.Add(newBug);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                Bug newBug = new Bug(allownedBugs[i].baseBugIndex, allownedBugs[i].lvl, allownedBugs[i].bugClass, allownedBugs[i].equippedItems);
+                party.Add(newBug);
+            }
         }
     }
 
@@ -115,25 +126,27 @@ public class BugBox : MonoBehaviour
 
     public Bug GetWildBug()
     { 
-        if (currentWildBug == null) 
-        {
-            Bug errorBug = new Bug(0, 1, BugClass.Tank);
-            return errorBug;
-        }
-        
-        return currentWildBug;}
+        return currentWildBug;
+    }
 
     public void ChangeCurrentWildBug(Bug bug)
     {
+        if (bug == null) { Debug.Log("could not generate"); }
+
         currentWildBug = bug;
     }
 
     public void LoadBugSaveData()
-    { 
+    {
         bugData = LocalSaveManager.LoadBugs();
+        if (bugData == null)
+        {
+            bugData = new BugBoxData(allownedBugs);
+            return;
+        }
         foreach (Bug bugs in bugData.PlaysOwnedBugs)
         {
-            Bug newBug = new Bug(bugs.baseBugIndex,bugs.lvl,bugs.bugClass);
+            Bug newBug = new Bug(bugs.baseBugIndex,bugs.lvl,bugs.bugClass, bugs.equippedItems);
             allownedBugs.Add(newBug);
         }
     }

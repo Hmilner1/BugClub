@@ -19,13 +19,11 @@ public class EventManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public class Battle : UnityEvent<bool>
-    { 
-    }
+    public class CustomBattle : UnityEvent<bool> { }
 
     #region Player Events
     public UnityEvent OnStep;
-    public Battle OnBattle = new Battle();
+    public CustomBattle OnBattle = new CustomBattle();
     public UnityEvent OnOverWorld;
     public UnityEvent OnStopMovement;
     public UnityEvent OnStartMovement;

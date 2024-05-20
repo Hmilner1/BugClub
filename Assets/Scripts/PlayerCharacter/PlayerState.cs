@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerState : MonoBehaviour
 {
-    private PlayerStates currentState;
+    public static PlayerStates currentState;
 
     [SerializeField]
     private GameObject battleCam;
@@ -12,7 +12,7 @@ public class PlayerState : MonoBehaviour
     [SerializeField]
     private SpriteRenderer enemyPos;
 
-    private enum PlayerStates
+    public enum PlayerStates
     { 
         overWorld,
         battle,

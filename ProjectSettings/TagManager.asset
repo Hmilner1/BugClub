@@ -7,6 +7,9 @@ TagManager:
   - Grass
   - Ground
   - BattleCanvas
+  - PartyTab
+  - Up
+  - Down
   layers:
   - Default
   - TransparentFX

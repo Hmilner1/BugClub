@@ -6,18 +6,17 @@ using UnityEngine;
 public class Bug
 {
     private BugDataBase dataBase = Resources.Load<BugDataBase>("Bugs/DataBases/BugDatabase");
-    private BattleItemDataBase itemDataBase = Resources.Load<BattleItemDataBase>("Items/DataBase/BattleItemDatabase");
     public int baseBugIndex;
     public int lvl;
     public BugClass bugClass;
-    public List<BattleItem> equipableItems = new List<BattleItem>();
+    public BattleItem[] equippedItems = new BattleItem[3];
 
-    public  Bug(int bugIndex, int currentLvl, BugClass Class)
+    public  Bug(int bugIndex, int currentLvl, BugClass Class , BattleItem[] items)
     {
         baseBugIndex = bugIndex;
         lvl = currentLvl;
         bugClass = Class;
-        equipableItems = PopulateEquipableItems();
+        equippedItems = items;
     }
 
     public int HP
@@ -48,21 +47,6 @@ public class Bug
     public int Speed
     {
         get { return Mathf.FloorToInt((dataBase.bugDataBase[baseBugIndex].speed * lvl) / 100f) + 5; }
-    }
-
-    private List<BattleItem> PopulateEquipableItems()
-    {
-        List<BattleItem> tempList = new List<BattleItem>();
-
-        for (int i = 0; i < itemDataBase.battleItemDataBase.Count; i++)
-        {
-            if (itemDataBase.battleItemDataBase[i].itemClass == bugClass)
-            {
-                BattleItem newItem = new BattleItem(i);
-                tempList.Add(newItem);
-            }
-        }
-        return tempList;
     }
 }
 

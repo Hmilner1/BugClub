@@ -4,6 +4,7 @@ public class EncounterManager : MonoBehaviour
 {
     [SerializeField]
     private BugDataBase bugDataBase;
+    private BattleItem[] battleItems = new BattleItem[4];
 
     private void OnEnable()
     {
@@ -17,13 +18,14 @@ public class EncounterManager : MonoBehaviour
 
     private void BattleStarted(bool wild)
     {
+        Debug.Log("hit");
         if (!wild) { return; }
         BugBox.instance.ChangeCurrentWildBug(GenerateBug());
     }
 
     private Bug GenerateBug()
     {
-        Bug GeneratedBug = new Bug(GenererateBugIndex(), GenerateBugLvl(), GenerateBugClass());
+        Bug GeneratedBug = new Bug(GenererateBugIndex(), GenerateBugLvl(), GenerateBugClass(), battleItems);
         return GeneratedBug;
     }
 
@@ -35,7 +37,7 @@ public class EncounterManager : MonoBehaviour
 
     public int GenerateBugLvl()
     {
-        int lvl = Random.Range(1, 10);
+        int lvl = Random.Range(3, 10);
         return lvl;
     }
 
@@ -46,15 +48,23 @@ public class EncounterManager : MonoBehaviour
         switch (bugClass)
         {
             case 1:
+                GenerateItems(BugClass.Tank);
                 return BugClass.Tank;
             case 2:
+                GenerateItems(BugClass.Support);
                 return BugClass.Support;
 
             case 3:
+                GenerateItems(BugClass.DPS);
                 return BugClass.DPS;
         }
 
         return BugClass.Tank;
+    }
+
+    private void GenerateItems(BugClass bugClass)
+    { 
+        battleItems = ItemManager.instance.GetRandomItems(bugClass);
     }
 
 
