@@ -20,6 +20,8 @@ public class EventManager : MonoBehaviour
         }
     }
     public class CustomBattle : UnityEvent<bool> { }
+    public class CustomAttack : UnityEvent<int> { }
+
 
     #region Player Events
     public UnityEvent OnStep;
@@ -27,13 +29,14 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnOverWorld;
     public UnityEvent OnStopMovement;
     public UnityEvent OnStartMovement;
+    public CustomAttack OnPreformAttack = new CustomAttack();
     #endregion
 
     #region UI Events
     public UnityEvent OnOpenBattleCanvas;
     public UnityEvent OnCloseBattleCanvas;
     public UnityEvent OnRefreshParty;
-
+    public UnityEvent OnRefreshUI;
     #endregion
 
     public void Step()
@@ -73,5 +76,15 @@ public class EventManager : MonoBehaviour
     public void RefreshParty()
     { 
         OnRefreshParty?.Invoke();
+    }
+
+    public void RefreshUI()
+    { 
+        OnRefreshUI?.Invoke();
+    }
+
+    public void Attack(int value)
+    { 
+        OnPreformAttack?.Invoke(value);
     }
 }

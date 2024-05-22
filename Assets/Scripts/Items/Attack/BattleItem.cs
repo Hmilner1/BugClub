@@ -14,6 +14,8 @@ public class BattleItem
     }
 
     public string Name { get { return dataBase.battleItemDataBase[itemIndex].itemName; } }
+
+    public int Damage { get { return dataBase.battleItemDataBase[itemIndex].itemDamage; } }
     
  
 

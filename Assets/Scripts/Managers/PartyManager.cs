@@ -28,14 +28,6 @@ public class PartyManager : MonoBehaviour
         GetTeamFromSave();
     }
 
-
-    private void Update()
-    {
-        if (Input.GetKeyDown("l"))
-        {
-            PartySwap(0, 1);
-        }
-    }
     private void GetTeamFromSave()
     {
         playerBugTeam = new List<Bug>();

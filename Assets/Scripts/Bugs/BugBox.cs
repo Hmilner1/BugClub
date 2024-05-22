@@ -76,11 +76,17 @@ public class BugBox : MonoBehaviour
         return bugDataBase.bugDataBase[bugIndex].description;
     }
 
-    public void AddNewBug(Bug newBug)
+    public void AddNewBug()
+    {
+        allownedBugs.Add(currentWildBug);
+        SaveBugData();
+        EventManager.instance.OverWorld();
+    }
+
+    public void GiveNewBug(Bug newBug)
     {
         allownedBugs.Add(newBug);
         SaveBugData();
-        EventManager.instance.OverWorld();
     }
 
     public void LoadParty(List<Bug> party)
@@ -90,16 +96,16 @@ public class BugBox : MonoBehaviour
         {
             for (int i = 0; i < allownedBugs.Count; i++)
             {
-                Bug newBug = new Bug(allownedBugs[i].baseBugIndex, allownedBugs[i].lvl, allownedBugs[i].bugClass, allownedBugs[i].equippedItems);
-                party.Add(newBug);
+                //Bug newBug = new Bug(allownedBugs[i].baseBugIndex, allownedBugs[i].lvl, allownedBugs[i].bugClass, allownedBugs[i].equippedItems);
+                party.Add(allownedBugs[i]);
             }
         }
         else
         {
             for (int i = 0; i < 4; i++)
             {
-                Bug newBug = new Bug(allownedBugs[i].baseBugIndex, allownedBugs[i].lvl, allownedBugs[i].bugClass, allownedBugs[i].equippedItems);
-                party.Add(newBug);
+                // Bug newBug = new Bug(allownedBugs[i].baseBugIndex, allownedBugs[i].lvl, allownedBugs[i].bugClass, allownedBugs[i].equippedItems);
+                party.Add(allownedBugs[i]);
             }
         }
     }
@@ -147,6 +153,12 @@ public class BugBox : MonoBehaviour
         foreach (Bug bugs in bugData.PlaysOwnedBugs)
         {
             Bug newBug = new Bug(bugs.baseBugIndex,bugs.lvl,bugs.bugClass, bugs.equippedItems);
+
+            for(int i = 0; i < newBug.equippedItems.Length; i++)
+            {
+                BattleItem newItem = new BattleItem(newBug.equippedItems[i].itemIndex);
+                newBug.equippedItems[i] = newItem;
+            }
             allownedBugs.Add(newBug);
         }
     }

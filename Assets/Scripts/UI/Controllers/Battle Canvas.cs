@@ -38,6 +38,7 @@ public class BattleCanvas : MonoBehaviour
         EventManager.instance.OnOpenBattleCanvas.AddListener(OpenCanvas);
         EventManager.instance.OnCloseBattleCanvas.AddListener(CloseCanvas);
         EventManager.instance.OnRefreshParty.AddListener(UpdatePlayerInfo);
+        EventManager.instance.OnPreformAttack.AddListener(AttackBug);
 
     }
 
@@ -46,7 +47,15 @@ public class BattleCanvas : MonoBehaviour
         EventManager.instance.OnOpenBattleCanvas.RemoveListener(OpenCanvas);
         EventManager.instance.OnCloseBattleCanvas.RemoveListener(CloseCanvas);
         EventManager.instance.OnRefreshParty.RemoveListener(UpdatePlayerInfo);
-
+        EventManager.instance.OnPreformAttack.RemoveListener(AttackBug);
+    }
+    private void Update()
+    {
+        UpdateHealthBar(enemyHpSlider);
+        if (enemyHpSlider.value <= 0)
+        {
+            EventManager.instance.OverWorld();
+        }
     }
 
     private void OpenCanvas()
@@ -62,27 +71,18 @@ public class BattleCanvas : MonoBehaviour
         battleCanvas.enabled = false;
     }
 
-    private void Update()
-    {
-        UpdateHealthBar(enemyHpSlider);
-        if (enemyHpSlider.value <= 0)
-        {
-            EventManager.instance.OverWorld();
-        }
-    }
 
     private void UpdatePlayerInfo()
     {
-        if (PlayerState.currentState == PlayerState.PlayerStates.battle)
-        {
-            Bug activeBug = PartyManager.instance.playerBugTeam[0];
-            playerBugSprite.sprite = BugBox.instance.getBugModel(activeBug.baseBugIndex, false);
-            playerName.text = BugBox.instance.GetBugName(activeBug.baseBugIndex);
-            playerLvl.text = "Lvl " + activeBug.lvl.ToString();
-            playerHpSlider.maxValue = activeBug.HP;
-            playerHpSlider.value = activeBug.HP;
-            playerBugClass.sprite = BugBox.instance.GetClassUI(activeBug.bugClass);
-        }
+
+        Bug activeBug = PartyManager.instance.playerBugTeam[0];
+        playerBugSprite.sprite = BugBox.instance.getBugModel(activeBug.baseBugIndex, false);
+        playerName.text = BugBox.instance.GetBugName(activeBug.baseBugIndex);
+        playerLvl.text = "Lvl " + activeBug.lvl.ToString();
+        playerHpSlider.maxValue = activeBug.HP;
+        playerHpSlider.value = activeBug.HP;
+        playerBugClass.sprite = BugBox.instance.GetClassUI(activeBug.bugClass);
+
     }
 
     private void UpdateEnemyInfo()
@@ -98,7 +98,7 @@ public class BattleCanvas : MonoBehaviour
 
     public void CatchCurrentBug()
     {
-        BugBox.instance.AddNewBug(BugBox.instance.GetWildBug());
+        BugBox.instance.AddNewBug();
     }
 
     public void AttackBug(int Amount)

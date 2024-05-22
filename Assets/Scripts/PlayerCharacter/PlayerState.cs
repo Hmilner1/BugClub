@@ -5,13 +5,6 @@ public class PlayerState : MonoBehaviour
 {
     public static PlayerStates currentState;
 
-    [SerializeField]
-    private GameObject battleCam;
-    [SerializeField]
-    private GameObject battlePositions;
-    [SerializeField]
-    private SpriteRenderer enemyPos;
-
     public enum PlayerStates
     { 
         overWorld,
@@ -53,18 +46,10 @@ public class PlayerState : MonoBehaviour
     private void BattleMode(bool wild)
     {
         currentState = PlayerStates.battle;
-        EventManager.instance.StopMovement();
-        EventManager.instance.OpenBattleCanvas();
-        battleCam.SetActive(true);
-        battlePositions.SetActive(true);
     }
 
     private void OverWorld()
     { 
         currentState = PlayerStates.overWorld;
-        battleCam.SetActive(false);
-        battlePositions.SetActive(false);
-        EventManager.instance.StartMovement();
-        EventManager.instance.CloseBattleCanvas();
     }
 }

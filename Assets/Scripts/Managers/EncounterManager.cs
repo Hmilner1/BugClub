@@ -18,7 +18,6 @@ public class EncounterManager : MonoBehaviour
 
     private void BattleStarted(bool wild)
     {
-        Debug.Log("hit");
         if (!wild) { return; }
         BugBox.instance.ChangeCurrentWildBug(GenerateBug());
     }

@@ -9,7 +9,7 @@ public class Bug
     public int baseBugIndex;
     public int lvl;
     public BugClass bugClass;
-    public BattleItem[] equippedItems = new BattleItem[3];
+    public BattleItem[] equippedItems = new BattleItem[4];
 
     public  Bug(int bugIndex, int currentLvl, BugClass Class , BattleItem[] items)
     {

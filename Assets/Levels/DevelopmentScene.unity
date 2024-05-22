@@ -9225,14 +9225,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1819206000}
-        m_TargetAssemblyTypeName: BattleCanvas, Assembly-CSharp
-        m_MethodName: AttackBug
+      - m_Target: {fileID: 356728427}
+        m_TargetAssemblyTypeName: FightController, Assembly-CSharp
+        m_MethodName: CalcDamage
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -11383,6 +11383,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 356728423}
+  - component: {fileID: 356728427}
   - component: {fileID: 356728426}
   - component: {fileID: 356728425}
   - component: {fileID: 356728424}
@@ -11481,6 +11482,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 356728422}
   m_CullTransparentMesh: 1
+--- !u!114 &356728427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356728422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 519bb37af7a42ac468c0c0bf5a0a0acc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fightButtons:
+  - {fileID: 1022985247}
+  - {fileID: 594055964}
+  - {fileID: 291822641}
+  - {fileID: 901913931}
 --- !u!4 &356912101 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5646206960422831584, guid: 6d2cd4e3f1223a542b15076c9a3b538b, type: 3}
@@ -16140,6 +16158,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 2126413793}
+        m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
+        m_MethodName: RefreshUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &560706073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17224,14 +17254,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1819206000}
-        m_TargetAssemblyTypeName: BattleCanvas, Assembly-CSharp
-        m_MethodName: AttackBug
+      - m_Target: {fileID: 356728427}
+        m_TargetAssemblyTypeName: FightController, Assembly-CSharp
+        m_MethodName: CalcDamage
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -27542,14 +27572,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1819206000}
-        m_TargetAssemblyTypeName: BattleCanvas, Assembly-CSharp
-        m_MethodName: AttackBug
+      - m_Target: {fileID: 356728427}
+        m_TargetAssemblyTypeName: FightController, Assembly-CSharp
+        m_MethodName: CalcDamage
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -30200,14 +30230,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1819206000}
-        m_TargetAssemblyTypeName: BattleCanvas, Assembly-CSharp
-        m_MethodName: AttackBug
+      - m_Target: {fileID: 356728427}
+        m_TargetAssemblyTypeName: FightController, Assembly-CSharp
+        m_MethodName: CalcDamage
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 5
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -68717,6 +68747,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   OnRefreshParty:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRefreshUI:
     m_PersistentCalls:
       m_Calls: []
 --- !u!1 &2128608915

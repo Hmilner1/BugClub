@@ -9,8 +9,6 @@ public class PartyMemberTab : MonoBehaviour
 {
     [SerializeField]
     private UnityEngine.UI.Image bugSprite;
-    [SerializeField]
-    private TMP_Dropdown[] moves = new TMP_Dropdown[4];
    
     
     [SerializeField]
@@ -40,27 +38,12 @@ public class PartyMemberTab : MonoBehaviour
 
     private void PopulateMoves()
     {
-        foreach (var dropBox in moves)
-        {
-            List<BattleItem> items = new List<BattleItem>();
-            Bug currentBug = PartyManager.instance.playerBugTeam[partyIndex];
-            items = ItemManager.instance.GetItemsFromClass(currentBug.bugClass);
-            for (int i = 0; i < items.Count; i++)
-            {
-                TMP_Dropdown.OptionData data = new TMP_Dropdown.OptionData();
-                dropBox.options.Add(data);
-                dropBox.options[i].text = items[i].Name;
-            }
-        }
+       
     }
 
     private void SetMoveValue()
     {
-        for (int i = 0; i < moves.Length; i++)
-        {
-            moves[i].value = 0;
-            moves[i].RefreshShownValue();
-        }
+        
     }
 
     public void OnDropValueChanged()
@@ -80,7 +63,7 @@ public class PartyMemberTab : MonoBehaviour
                 }
             }
         }
-        else if (partyIndex == 3)
+        else if (partyIndex == PartyManager.instance.playerBugTeam.Count-1)
         {
             foreach (Transform button in GetComponentsInChildren<Transform>())
             {
