@@ -9852,7 +9852,7 @@ SpriteRenderer:
   m_Size: {x: 3.68, y: 4.15}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &295060737
@@ -16097,10 +16097,10 @@ RectTransform:
   - {fileID: 1567379285}
   m_Father: {fileID: 1018521569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 175, y: -83.333336}
+  m_SizeDelta: {x: 350, y: 166.66667}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &560706072
 MonoBehaviour:
@@ -16146,10 +16146,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 356728422}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 563201616}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: OnClickFight
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16208,6 +16208,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 560706070}
   m_CullTransparentMesh: 1
+--- !u!1 &563201614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 563201615}
+  - component: {fileID: 563201616}
+  m_Layer: 0
+  m_Name: BattleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &563201615
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563201614}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -32.514404, y: 0.8862129, z: 37.206238}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &563201616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 563201614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ada978e1bb510459eeddca9b587aac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 4
+  battleCam: {fileID: 1355113617}
+  battlePositions: {fileID: 1251335451}
+  actionSelector: {fileID: 1018521568}
+  moveSelector: {fileID: 356728422}
+  playerCurrentHealth: 0
+  enemyCurrentHealth: 0
 --- !u!4 &563786382 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5646206960422831584, guid: 6d2cd4e3f1223a542b15076c9a3b538b, type: 3}
@@ -30060,7 +30111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1018521569
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34099,7 +34150,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -48515,10 +48566,10 @@ RectTransform:
   - {fileID: 848551021}
   m_Father: {fileID: 1018521569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 175, y: -416.6667}
+  m_SizeDelta: {x: 350, y: 166.66667}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1544822244
 MonoBehaviour:
@@ -48564,9 +48615,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2126413793}
-        m_TargetAssemblyTypeName: EventManager, Assembly-CSharp
-        m_MethodName: OverWorld
+      - m_Target: {fileID: 563201616}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: OnClickRun
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -52045,9 +52096,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c37298ebfc136d4fbe6106eaae17a9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleCam: {fileID: 1355113617}
-  battlePositions: {fileID: 1251335451}
-  enemyPos: {fileID: 294655396}
 --- !u!1001 &1649582269
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -60445,10 +60493,10 @@ RectTransform:
   - {fileID: 1572883477}
   m_Father: {fileID: 1018521569}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 175, y: -250}
+  m_SizeDelta: {x: 350, y: 166.66667}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1907400116
 MonoBehaviour:
@@ -60494,9 +60542,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1819206000}
-        m_TargetAssemblyTypeName: BattleCanvas, Assembly-CSharp
-        m_MethodName: CatchCurrentBug
+      - m_Target: {fileID: 563201616}
+        m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+        m_MethodName: OnClickCatch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -68752,6 +68800,9 @@ MonoBehaviour:
   OnRefreshUI:
     m_PersistentCalls:
       m_Calls: []
+  OnBattleEnd:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &2128608915
 GameObject:
   m_ObjectHideFlags: 0
@@ -70318,3 +70369,4 @@ SceneRoots:
   - {fileID: 147532017}
   - {fileID: 2103780157}
   - {fileID: 1634623760}
+  - {fileID: 563201615}

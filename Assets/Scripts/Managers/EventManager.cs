@@ -37,6 +37,7 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnCloseBattleCanvas;
     public UnityEvent OnRefreshParty;
     public UnityEvent OnRefreshUI;
+    public UnityEvent OnBattleEnd;
     #endregion
 
     public void Step()
@@ -82,9 +83,14 @@ public class EventManager : MonoBehaviour
     { 
         OnRefreshUI?.Invoke();
     }
+    public void BattleEnd()
+    {
+        OnBattleEnd?.Invoke();
+    }
 
     public void Attack(int value)
     { 
         OnPreformAttack?.Invoke(value);
     }
+
 }

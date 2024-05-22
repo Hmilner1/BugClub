@@ -96,7 +96,6 @@ public class BugBox : MonoBehaviour
         {
             for (int i = 0; i < allownedBugs.Count; i++)
             {
-                //Bug newBug = new Bug(allownedBugs[i].baseBugIndex, allownedBugs[i].lvl, allownedBugs[i].bugClass, allownedBugs[i].equippedItems);
                 party.Add(allownedBugs[i]);
             }
         }
@@ -104,7 +103,6 @@ public class BugBox : MonoBehaviour
         {
             for (int i = 0; i < 4; i++)
             {
-                // Bug newBug = new Bug(allownedBugs[i].baseBugIndex, allownedBugs[i].lvl, allownedBugs[i].bugClass, allownedBugs[i].equippedItems);
                 party.Add(allownedBugs[i]);
             }
         }

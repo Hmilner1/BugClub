@@ -3,6 +3,7 @@ using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
+using static BattleManager;
 
 public class BattleCanvas : MonoBehaviour
 {
@@ -31,15 +32,13 @@ public class BattleCanvas : MonoBehaviour
     [SerializeField]
     private Image enemyBugClass;
 
-    private int currentHealth;
+    private bool battleStarted = false;
 
     private void OnEnable()
     {
         EventManager.instance.OnOpenBattleCanvas.AddListener(OpenCanvas);
         EventManager.instance.OnCloseBattleCanvas.AddListener(CloseCanvas);
         EventManager.instance.OnRefreshParty.AddListener(UpdatePlayerInfo);
-        EventManager.instance.OnPreformAttack.AddListener(AttackBug);
-
     }
 
     private void OnDisable()
@@ -47,14 +46,15 @@ public class BattleCanvas : MonoBehaviour
         EventManager.instance.OnOpenBattleCanvas.RemoveListener(OpenCanvas);
         EventManager.instance.OnCloseBattleCanvas.RemoveListener(CloseCanvas);
         EventManager.instance.OnRefreshParty.RemoveListener(UpdatePlayerInfo);
-        EventManager.instance.OnPreformAttack.RemoveListener(AttackBug);
     }
     private void Update()
     {
-        UpdateHealthBar(enemyHpSlider);
-        if (enemyHpSlider.value <= 0)
-        {
-            EventManager.instance.OverWorld();
+        UpdateHealthBar(BattleManager.instance.enemyCurrentHealth, enemyHpSlider);
+        UpdateHealthBar(BattleManager.instance.playerCurrentHealth,playerHpSlider);
+        if (!battleStarted) { return; }
+        if (BattleManager.instance.playerCurrentHealth <= 0 || BattleManager.instance.enemyCurrentHealth <= 0)
+        { 
+            EventManager.instance.BattleEnd();
         }
     }
 
@@ -62,19 +62,18 @@ public class BattleCanvas : MonoBehaviour
     {
         UpdatePlayerInfo();
         UpdateEnemyInfo();
-        currentHealth = (int)enemyHpSlider.maxValue;
+        battleStarted = true;
         battleCanvas.enabled = true;
     }
 
     private void CloseCanvas()
     {
+        battleStarted = false;
         battleCanvas.enabled = false;
     }
 
-
     private void UpdatePlayerInfo()
     {
-
         Bug activeBug = PartyManager.instance.playerBugTeam[0];
         playerBugSprite.sprite = BugBox.instance.getBugModel(activeBug.baseBugIndex, false);
         playerName.text = BugBox.instance.GetBugName(activeBug.baseBugIndex);
@@ -82,7 +81,6 @@ public class BattleCanvas : MonoBehaviour
         playerHpSlider.maxValue = activeBug.HP;
         playerHpSlider.value = activeBug.HP;
         playerBugClass.sprite = BugBox.instance.GetClassUI(activeBug.bugClass);
-
     }
 
     private void UpdateEnemyInfo()
@@ -101,15 +99,9 @@ public class BattleCanvas : MonoBehaviour
         BugBox.instance.AddNewBug();
     }
 
-    public void AttackBug(int Amount)
-    {
-        currentHealth = currentHealth - Amount;
-    }
-
-    private void UpdateHealthBar(Slider Healthbar)
+    private void UpdateHealthBar(int Health,Slider Healthbar)
     {
         int start = (int)Healthbar.value;
-        Healthbar.value = Mathf.Lerp(start, currentHealth, .2f*Time.deltaTime);
-
+        Healthbar.value = Mathf.Lerp(start, Health, .2f*Time.deltaTime);
     }
 }

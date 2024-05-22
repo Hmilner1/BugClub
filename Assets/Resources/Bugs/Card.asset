@@ -19,7 +19,7 @@ MonoBehaviour:
   defence: 62
   spDefence: 62
   speed: 65
-  frontSprite: {fileID: 21300000, guid: a71b4aa1fa0bf7149854d54368725aad, type: 3}
+  frontSprite: {fileID: 21300000, guid: f6c9573faa0e4904093fbd9fcaf47a2a, type: 3}
   backSprite: {fileID: 21300000, guid: 8fddcc1e8fc194f44ae5b8a9f604817e, type: 3}
   description: 'This dude aint from this game ??
 
