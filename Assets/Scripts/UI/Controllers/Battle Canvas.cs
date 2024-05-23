@@ -49,13 +49,9 @@ public class BattleCanvas : MonoBehaviour
     }
     private void Update()
     {
-        UpdateHealthBar(BattleManager.instance.enemyCurrentHealth, enemyHpSlider);
-        UpdateHealthBar(BattleManager.instance.playerCurrentHealth,playerHpSlider);
         if (!battleStarted) { return; }
-        if (BattleManager.instance.playerCurrentHealth <= 0 || BattleManager.instance.enemyCurrentHealth <= 0)
-        { 
-            EventManager.instance.BattleEnd();
-        }
+        UpdateHealthBar(BattleManager.instance.enemyBug.currentHP, enemyHpSlider);
+        UpdateHealthBar(BattleManager.instance.playerBug.currentHP,playerHpSlider);
     }
 
     private void OpenCanvas()

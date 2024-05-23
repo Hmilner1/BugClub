@@ -1,5 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
@@ -20,15 +20,16 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private GameObject moveSelector;
 
-    private Bug PlayerBug;
-    private Bug EnemyBug;
+    public Bug playerBug { get; private set; }
+    public Bug enemyBug { get; private set; }
 
-    public int playerCurrentHealth;
-    public int enemyCurrentHealth;
+    [SerializeField]
+    private TMP_Text battleText;
+    [SerializeField]
+    private float battleSpeed;
 
     private void Awake()
     {
-        Debug.Log(Application.persistentDataPath);
         if (instance == null)
         {
             instance = this;
@@ -43,15 +44,13 @@ public class BattleManager : MonoBehaviour
     private void OnEnable()
     {
         EventManager.instance.OnBattle.AddListener(BattleBegin);
-        EventManager.instance.OnPreformAttack.AddListener(AttackSelected);
-        EventManager.instance.OnBattleEnd.AddListener(OnBattleEnd);
+        EventManager.instance.OnPreformAttack.AddListener(PlayerAttackSelect);
     }
 
     private void OnDisable()
     {
         EventManager.instance.OnBattle.RemoveListener(BattleBegin);
-        EventManager.instance.OnPreformAttack.RemoveListener(AttackSelected);
-        EventManager.instance.OnBattleEnd.RemoveListener(OnBattleEnd);
+        EventManager.instance.OnPreformAttack.RemoveListener(PlayerAttackSelect);
     }
 
     private void Start()
@@ -62,10 +61,9 @@ public class BattleManager : MonoBehaviour
     private void BattleBegin(bool Wild)
     {
         currentState = BattleState.start;
-        PlayerBug = PartyManager.instance.playerBugTeam[0];
-        EnemyBug = BugBox.instance.GetWildBug();
-        playerCurrentHealth = PlayerBug.HP;
-        enemyCurrentHealth = EnemyBug.HP;
+        playerBug = PartyManager.instance.playerBugTeam[0];
+        enemyBug = BugBox.instance.GetWildBug();
+        battleText.text = "You Found " + BugBox.instance.GetBugName(enemyBug.baseBugIndex) + "!";
         StartCoroutine(OpenBattle());
     }
 
@@ -73,12 +71,13 @@ public class BattleManager : MonoBehaviour
     {
         EventManager.instance.StopMovement();
         EventManager.instance.OpenBattleCanvas();
+        EventManager.instance.RefreshUI();
         battleCam.SetActive(true);
         battlePositions.SetActive(true);
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(battleSpeed);
 
-        OpenCloseActions();
+        OpenActionMenu();
         currentState = BattleState.moveSelection;
         StopCoroutine(OpenBattle());
     }
@@ -91,33 +90,89 @@ public class BattleManager : MonoBehaviour
         EventManager.instance.CloseBattleCanvas();
     }
 
-    private void OpenCloseActions()
+    private void OpenActionMenu()
     {
-        if (actionSelector.activeSelf == false)
+        battleText.text = "Chose An Action";
+        actionSelector.SetActive(true);
+    }
+
+    private void CloseActionMenu()
+    {
+        actionSelector.SetActive(false);
+    }
+
+    private void SpeedCheck(BattleItem PlayerAttack, BattleItem EnemyAttack)
+    {
+        if (playerBug.Speed > enemyBug.Speed)
         {
-            actionSelector.SetActive(true);
+            StartCoroutine(PreformAttacks(playerBug,enemyBug, PlayerAttack, EnemyAttack));
         }
         else
         {
-            actionSelector.SetActive(false);
+            StartCoroutine(PreformAttacks(enemyBug,playerBug,EnemyAttack,PlayerAttack));
         }
     }
 
-    private void AttackSelected(int damage)
+    private IEnumerator PreformAttacks(Bug TurnOneBug,Bug TurnTwoBug,BattleItem TurnOne, BattleItem TurnTwo)
     {
-        currentState = BattleState.attack;
-        OpenCloseActions();
-        SelectEnemyAttack();
-        enemyCurrentHealth = enemyCurrentHealth - damage;
+        battleText.text = BugBox.instance.GetBugName(TurnOneBug.baseBugIndex) + " Used " + TurnOne.Name;
+        TurnTwoBug.currentHP = TurnOneBug.currentHP - TurnOne.Damage;
+        if (EndCheck()) { StopCoroutine(PreformAttacks(TurnOneBug, TurnTwoBug, TurnOne, TurnTwo)); }
+
+        yield return new WaitForSeconds(battleSpeed);
+
+        if (!EndCheck())
+        {
+            battleText.text = BugBox.instance.GetBugName(TurnTwoBug.baseBugIndex) + " Used " + TurnTwo.Name;
+
+            TurnOneBug.currentHP = TurnOneBug.currentHP - TurnTwo.Damage;
+        }
+        if (EndCheck()) { StopCoroutine(PreformAttacks(TurnOneBug, TurnTwoBug, TurnOne, TurnTwo)); }
+
+        StartCoroutine(ReOpenActionMenu());
     }
 
-    private void SelectEnemyAttack()
+    private IEnumerator ReOpenActionMenu()
+    {
+        yield return new WaitForSeconds(battleSpeed);
+        OpenActionMenu();
+        StopCoroutine(ReOpenActionMenu());
+    }
+
+    private bool EndCheck()
+    {
+        if (playerBug.currentHP <= 0)
+        {
+            battleText.text = "You Lost The Bug Battle";
+            OnBattleEnd();
+            return true;
+        }
+        else if (enemyBug.currentHP <= 0)
+        {
+            battleText.text = "You Won!";
+            OnBattleEnd();
+            return true;
+        }
+        return false;
+    }
+
+    private void PlayerAttackSelect(int Attack)
+    {
+        currentState = BattleState.attack;
+        CloseActionMenu();
+        moveSelector.SetActive(false);
+        BattleItem selectedItem = playerBug.equippedItems[Attack];
+        SpeedCheck(selectedItem, EnemyAttackSelect());
+    }
+
+    private BattleItem EnemyAttackSelect()
     {
         BattleItem[] enemyItems = new BattleItem[4];
-        enemyItems = EnemyBug.equippedItems;
+        enemyItems = enemyBug.equippedItems;
 
         int rnd = Random.Range(0, enemyItems.Length);
-        playerCurrentHealth = playerCurrentHealth - enemyItems[rnd].Damage;
+
+        return enemyItems[rnd];
     }
 
     public void OnClickFight()
@@ -127,7 +182,6 @@ public class BattleManager : MonoBehaviour
 
     IEnumerator Fight()
     {
-        OpenCloseActions();
         yield return new WaitForSeconds(.5f);
 
         moveSelector.SetActive(true);
@@ -144,12 +198,11 @@ public class BattleManager : MonoBehaviour
     IEnumerator Catch()
     {
         currentState = BattleState.battleEnd;
-        OpenCloseActions();
+        CloseActionMenu();
         BugBox.instance.AddNewBug();
-        yield return new WaitForSeconds(.5f);
-
-        OverWorld();
-
+        battleText.text = "You Obtained " + BugBox.instance.GetBugName(enemyBug.baseBugIndex);
+        yield return new WaitForSeconds(battleSpeed);
+        OnBattleEnd();
         StopCoroutine(Catch());
     }
 
@@ -161,10 +214,11 @@ public class BattleManager : MonoBehaviour
     IEnumerator Run()
     {
         currentState = BattleState.battleEnd;
-        OpenCloseActions();
-        yield return new WaitForSeconds(.5f);
+        CloseActionMenu();
+        battleText.text = "You Ran From a Tiny Bug?";
+        yield return new WaitForSeconds(battleSpeed);
 
-        OverWorld();
+        OnBattleEnd();
         currentState = BattleState.NON;
         StopCoroutine(Run());
     }
@@ -178,7 +232,7 @@ public class BattleManager : MonoBehaviour
     {
         currentState = BattleState.battleEnd;
         moveSelector.SetActive(false);
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(battleSpeed);
 
         OverWorld();
         currentState = BattleState.NON;

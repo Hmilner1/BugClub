@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -10,13 +11,24 @@ public class Bug
     public int lvl;
     public BugClass bugClass;
     public BattleItem[] equippedItems = new BattleItem[4];
+    public int currentHP;
 
-    public  Bug(int bugIndex, int currentLvl, BugClass Class , BattleItem[] items)
+    public  Bug(int bugIndex, int currentLvl, BugClass Class, BattleItem[] items)
     {
         baseBugIndex = bugIndex;
         lvl = currentLvl;
         bugClass = Class;
         equippedItems = items;
+        currentHP = HP;
+    }
+
+    public Bug(int bugIndex, int currentLvl, BugClass Class, int CurrentHP, BattleItem[] items)
+    {
+        baseBugIndex = bugIndex;
+        lvl = currentLvl;
+        bugClass = Class;
+        equippedItems = items;
+        currentHP = CurrentHP;
     }
 
     public int HP

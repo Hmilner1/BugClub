@@ -150,7 +150,7 @@ public class BugBox : MonoBehaviour
         }
         foreach (Bug bugs in bugData.PlaysOwnedBugs)
         {
-            Bug newBug = new Bug(bugs.baseBugIndex,bugs.lvl,bugs.bugClass, bugs.equippedItems);
+            Bug newBug = new Bug(bugs.baseBugIndex,bugs.lvl,bugs.bugClass,bugs.currentHP, bugs.equippedItems);
 
             for(int i = 0; i < newBug.equippedItems.Length; i++)
             {

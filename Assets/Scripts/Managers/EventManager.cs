@@ -88,9 +88,9 @@ public class EventManager : MonoBehaviour
         OnBattleEnd?.Invoke();
     }
 
-    public void Attack(int value)
+    public void Attack(int Item)
     { 
-        OnPreformAttack?.Invoke(value);
+        OnPreformAttack?.Invoke(Item);
     }
 
 }

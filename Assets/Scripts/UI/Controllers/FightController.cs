@@ -36,12 +36,12 @@ public class FightController : MonoBehaviour
 
     public void CalcDamage(int ButtonIndex)
     {
-        int Damage = PartyManager.instance.playerBugTeam[0].equippedItems[ButtonIndex].Damage;
-        PreformAttack(Damage);
+        BattleItem item = PartyManager.instance.playerBugTeam[0].equippedItems[ButtonIndex];
+        PreformAttack(ButtonIndex);
     }
 
-    private void PreformAttack(int Value)
+    private void PreformAttack(int Item)
     {
-        EventManager.instance.Attack(Value);
+        EventManager.instance.Attack(Item);
     }
 }

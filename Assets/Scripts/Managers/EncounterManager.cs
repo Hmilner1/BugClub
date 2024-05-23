@@ -24,7 +24,7 @@ public class EncounterManager : MonoBehaviour
 
     private Bug GenerateBug()
     {
-        Bug GeneratedBug = new Bug(GenererateBugIndex(), GenerateBugLvl(), GenerateBugClass(), battleItems);
+        Bug GeneratedBug = new Bug(GenererateBugIndex(), GenerateBugLvl(), GenerateBugClass(),battleItems) ;
         return GeneratedBug;
     }
 
