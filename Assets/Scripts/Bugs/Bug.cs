@@ -41,19 +41,9 @@ public class Bug
         get { return Mathf.FloorToInt((dataBase.bugDataBase[baseBugIndex].attack * lvl) / 100f) + 5; }
     }
 
-    public int SpAttack
-    {
-        get { return Mathf.FloorToInt((dataBase.bugDataBase[baseBugIndex].spAttack * lvl) / 100f) + 5; }
-    }
-
     public int Defence
     {
         get { return Mathf.FloorToInt((dataBase.bugDataBase[baseBugIndex].defence * lvl) / 100f) + 5; }
-    }
-
-    public int SpDefence
-    {
-        get { return Mathf.FloorToInt((dataBase.bugDataBase[baseBugIndex].spDefence * lvl) / 100f) + 5; }
     }
 
     public int Speed

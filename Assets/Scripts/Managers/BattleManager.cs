@@ -101,34 +101,74 @@ public class BattleManager : MonoBehaviour
         actionSelector.SetActive(false);
     }
 
+    private void PlayerAttackSelect(int Attack)
+    {
+        currentState = BattleState.attack;
+        CloseActionMenu();
+        moveSelector.SetActive(false);
+        BattleItem selectedItem = playerBug.equippedItems[Attack];
+        SpeedCheck(selectedItem, EnemyAttackSelect());
+    }
+
+    private BattleItem EnemyAttackSelect()
+    {
+        BattleItem[] enemyItems = new BattleItem[4];
+        enemyItems = enemyBug.equippedItems;
+
+        int rnd = Random.Range(0, enemyItems.Length);
+
+        return enemyItems[rnd];
+    }
+
     private void SpeedCheck(BattleItem PlayerAttack, BattleItem EnemyAttack)
     {
         if (playerBug.Speed > enemyBug.Speed)
         {
-            StartCoroutine(PreformAttacks(playerBug,enemyBug, PlayerAttack, EnemyAttack));
+            StartCoroutine(PreformAttacks(playerBug, enemyBug, PlayerAttack, EnemyAttack));
+        }
+        else if (playerBug.Speed < enemyBug.Speed)
+        {
+            StartCoroutine(PreformAttacks(enemyBug, playerBug, EnemyAttack, PlayerAttack));
         }
         else
         {
-            StartCoroutine(PreformAttacks(enemyBug,playerBug,EnemyAttack,PlayerAttack));
+            int rnd = Random.Range(1, 3);
+            if (rnd == 1)
+            {
+                StartCoroutine(PreformAttacks(playerBug, enemyBug, PlayerAttack, EnemyAttack));
+            }
+            else if (rnd == 2)
+            {
+                StartCoroutine(PreformAttacks(enemyBug, playerBug, EnemyAttack, PlayerAttack));
+            }
         }
     }
 
-    private IEnumerator PreformAttacks(Bug TurnOneBug,Bug TurnTwoBug,BattleItem TurnOne, BattleItem TurnTwo)
+    private IEnumerator PreformAttacks(Bug TurnOneBug, Bug TurnTwoBug, BattleItem TurnOne, BattleItem TurnTwo)
     {
+        //Turn 1
+        //Update Text
         battleText.text = BugBox.instance.GetBugName(TurnOneBug.baseBugIndex) + " Used " + TurnOne.Name;
-        TurnTwoBug.currentHP = TurnOneBug.currentHP - TurnOne.Damage;
-        if (EndCheck()) { StopCoroutine(PreformAttacks(TurnOneBug, TurnTwoBug, TurnOne, TurnTwo)); }
+
+        //Damage Fomular
+        //0.5 to give more reasonable numbers 
+        float damageToDeal = ((0.5f * TurnOne.Damage * TurnOneBug.Attack) / TurnTwoBug.Defence);
+        TurnTwoBug.currentHP = TurnTwoBug.currentHP - (int)damageToDeal;
 
         yield return new WaitForSeconds(battleSpeed);
 
+        //Turn 2 
         if (!EndCheck())
         {
             battleText.text = BugBox.instance.GetBugName(TurnTwoBug.baseBugIndex) + " Used " + TurnTwo.Name;
-
-            TurnOneBug.currentHP = TurnOneBug.currentHP - TurnTwo.Damage;
+            damageToDeal = ((0.5f * TurnTwo.Damage * TurnTwoBug.Attack) / TurnOneBug.Defence);
+            TurnOneBug.currentHP = TurnOneBug.currentHP - (int)damageToDeal;
         }
+
         if (EndCheck()) { StopCoroutine(PreformAttacks(TurnOneBug, TurnTwoBug, TurnOne, TurnTwo)); }
 
+        //restarts move selection if game has not ended 
+        StopCoroutine(PreformAttacks(TurnOneBug, TurnTwoBug, TurnOne, TurnTwo));
         StartCoroutine(ReOpenActionMenu());
     }
 
@@ -154,25 +194,6 @@ public class BattleManager : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    private void PlayerAttackSelect(int Attack)
-    {
-        currentState = BattleState.attack;
-        CloseActionMenu();
-        moveSelector.SetActive(false);
-        BattleItem selectedItem = playerBug.equippedItems[Attack];
-        SpeedCheck(selectedItem, EnemyAttackSelect());
-    }
-
-    private BattleItem EnemyAttackSelect()
-    {
-        BattleItem[] enemyItems = new BattleItem[4];
-        enemyItems = enemyBug.equippedItems;
-
-        int rnd = Random.Range(0, enemyItems.Length);
-
-        return enemyItems[rnd];
     }
 
     public void OnClickFight()

@@ -8,9 +8,7 @@ public class BugBase : ScriptableObject
 
     public int hp;
     public int attack;
-    public int spAttack;
     public int defence;
-    public int spDefence;
     public int speed;
 
     

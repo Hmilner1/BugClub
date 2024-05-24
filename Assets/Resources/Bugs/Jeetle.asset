@@ -15,10 +15,8 @@ MonoBehaviour:
   bugName: Jeetly
   hp: 80
   attack: 125
-  spAttack: 40
   defence: 75
-  spDefence: 95
   speed: 85
   frontSprite: {fileID: 21300000, guid: b8ea297f428b53c4e99cafa2ea5a95d0, type: 3}
   backSprite: {fileID: 21300000, guid: 82cf9ff29268f3445b32926cb4f5bb6a, type: 3}
-  description: 
+  description: THEY MADE JELLY FOR BEETLES!

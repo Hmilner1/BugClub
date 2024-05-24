@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using TMPro;
-using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +8,9 @@ public class PartyMemberTab : MonoBehaviour
 {
     [SerializeField]
     private UnityEngine.UI.Image bugSprite;
+
+    [SerializeField]
+    private List<Button> Moves;
    
     
     [SerializeField]
@@ -38,7 +40,11 @@ public class PartyMemberTab : MonoBehaviour
 
     private void PopulateMoves()
     {
-       
+        foreach (var button in Moves)
+        {
+            TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
+            buttonText.text = PartyManager.instance.playerBugTeam[partyIndex].equippedItems[0].Name;
+        }
     }
 
     private void SetMoveValue()
