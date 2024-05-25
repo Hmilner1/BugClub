@@ -149,6 +149,15 @@ public class BugBox : MonoBehaviour
         SaveBugData();
     }
 
+    public void HealAll()
+    {
+        foreach (Bug bugs in allownedBugs)
+        {
+            int newHealth = bugs.HP;
+            bugs.currentHP = newHealth;
+        }
+    }
+
     public void LoadBugSaveData()
     {
         bugData = LocalSaveManager.LoadBugs();
