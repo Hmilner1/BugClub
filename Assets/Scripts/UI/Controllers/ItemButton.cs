@@ -11,5 +11,6 @@ public class ItemButton : MonoBehaviour
         bug.equippedItems[ItemIndex] = item;
         EventManager.instance.RefreshParty();
         EventManager.instance.OpenItemSelectionMenu();
+        BugBox.instance.SaveBugData();
     }
 }

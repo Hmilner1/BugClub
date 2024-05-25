@@ -140,6 +140,15 @@ public class BugBox : MonoBehaviour
         currentWildBug = bug;
     }
 
+    public void BugSwap(int index1, int index2)
+    {
+        Bug tempBug = allownedBugs[index1];
+
+        allownedBugs[index1] = allownedBugs[index2];
+        allownedBugs[index2] = tempBug;
+        SaveBugData();
+    }
+
     public void LoadBugSaveData()
     {
         bugData = LocalSaveManager.LoadBugs();

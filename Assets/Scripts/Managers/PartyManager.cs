@@ -37,11 +37,8 @@ public class PartyManager : MonoBehaviour
 
     public void PartySwap(int index1, int index2)
     { 
-        Bug tempBug = playerBugTeam[index1];
-
-        playerBugTeam[index1] = playerBugTeam[index2];
-        playerBugTeam[index2] = tempBug;
-        EventManager.instance.RefreshParty();
+        BugBox.instance.BugSwap(index1, index2);
+        GetTeamFromSave();
     }
 
 }
