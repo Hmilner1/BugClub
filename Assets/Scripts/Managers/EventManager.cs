@@ -38,6 +38,7 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnRefreshParty;
     public UnityEvent OnRefreshUI;
     public UnityEvent OnBattleEnd;
+    public UnityEvent OnCloseItemSelection;
     #endregion
 
     public void Step()
@@ -91,6 +92,11 @@ public class EventManager : MonoBehaviour
     public void Attack(int Item)
     { 
         OnPreformAttack?.Invoke(Item);
+    }
+
+    public void OpenItemSelectionMenu()
+    {
+        OnCloseItemSelection?.Invoke();
     }
 
 }

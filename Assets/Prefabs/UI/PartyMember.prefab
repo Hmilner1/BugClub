@@ -184,7 +184,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7837056180678976726}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 969374581269633482}
+        m_TargetAssemblyTypeName: PartyMemberTab, Assembly-CSharp
+        m_MethodName: OnMoveClicked
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1191270980797885342
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,6 +494,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bugSprite: {fileID: 3661846810550503715}
+  moves:
+  - {fileID: 2447115611342611660}
+  - {fileID: 6380202428080937579}
+  - {fileID: 8318383970999194009}
+  - {fileID: 1473250387729299074}
+  ItemSelectionPanel: {fileID: 6277167748276757907, guid: e6ea9b36190b4e64198ce810431de343, type: 3}
+  PartyCanvas: {fileID: 0}
   partyIndex: 0
 --- !u!1 &2957839295848851345
 GameObject:
@@ -799,7 +818,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7654299925357664040}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 969374581269633482}
+        m_TargetAssemblyTypeName: PartyMemberTab, Assembly-CSharp
+        m_MethodName: OnMoveClicked
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5027823191802603392
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,7 +1152,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2562908183807143433}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 969374581269633482}
+        m_TargetAssemblyTypeName: PartyMemberTab, Assembly-CSharp
+        m_MethodName: OnMoveClicked
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &6813783592136583101
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,7 +1557,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3718160288638875877}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 969374581269633482}
+        m_TargetAssemblyTypeName: PartyMemberTab, Assembly-CSharp
+        m_MethodName: OnMoveClicked
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8322578341671106181
 GameObject:
   m_ObjectHideFlags: 0
