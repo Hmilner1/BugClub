@@ -1,46 +1,57 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.LowLevel;
+
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float smoothTime = 0.05f;
-    [SerializeField] private float speed;
-    [SerializeField] private float groundDistance;
+    [SerializeField]
+    private float smoothTime = 0.05f;
+    [SerializeField]
+    private float speed;
+    [SerializeField]
+    private float groundDistance;
+    [SerializeField]
+    private GameObject InteractCanvas;
 
     private CharacterController characterController;
+    
     private float currentVelocity;
     private Vector2 input;
     private Vector3 direction;
     private bool canMove;
+    private bool canInteract;
 
     public Animator m_Animator;
     public InputSystem_Actions playerControls;
 
     private void Awake()
     {
+        playerControls = new InputSystem_Actions();
         Application.targetFrameRate = 120;
         characterController = GetComponent<CharacterController>();
-        playerControls = new InputSystem_Actions();
         canMove = true;
+        canInteract = false;
     }
 
     private void OnEnable()
     {
-        playerControls.Enable();
         EventManager.instance.OnStopMovement.AddListener(DisableMovement);
         EventManager.instance.OnStartMovement.AddListener(EnableMovement);
+        EventManager.instance.OnPlayerInteractOverlap.AddListener(EnableInteract);
+        EventManager.instance.OnplayerStopInteract.AddListener(DisableInteract);
+        playerControls.Player.Interact.started += OnInteraction;
+        playerControls.Player.Enable();
 
     }
 
     private void OnDisable()
     {
-        playerControls.Disable();
         EventManager.instance.OnStopMovement.RemoveListener(DisableMovement);
-        EventManager.instance.OnStartMovement.AddListener(EnableMovement);
-
+        EventManager.instance.OnStartMovement.RemoveListener(EnableMovement);
+        EventManager.instance.OnPlayerInteractOverlap.RemoveListener(EnableInteract);
+        EventManager.instance.OnplayerStopInteract.RemoveListener(DisableInteract);
+        playerControls.Player.Interact.started -= OnInteraction;
+        playerControls.Player.Disable();
     }
 
     void Update()
@@ -62,7 +73,7 @@ public class PlayerController : MonoBehaviour
         canMove = true;
     }
 
-    void Movement()
+    private void Movement()
     {
         if (!canMove) { return; }
 
@@ -82,6 +93,31 @@ public class PlayerController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0.0f, angle, 0.0f);
 
         characterController.Move(direction * speed * Time.deltaTime);
+    }
 
+    private void OnInteraction(InputAction.CallbackContext context)
+    {
+        Interaction();
+    }
+
+    public void Interaction()
+    {
+        if (canInteract)
+        {
+            EventManager.instance.Interact();
+        }
+    }
+
+
+    private void EnableInteract()
+    { 
+        InteractCanvas.SetActive(true);
+        canInteract = true;
+    }
+
+    private void DisableInteract()
+    { 
+        InteractCanvas.SetActive(false);
+        canInteract = false;
     }
 }

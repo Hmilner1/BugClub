@@ -155,7 +155,9 @@ public class BugBox : MonoBehaviour
         {
             int newHealth = bugs.HP;
             bugs.currentHP = newHealth;
+            PartyManager.instance.GetTeamFromSave();
         }
+        SaveBugData();
     }
 
     public void LoadBugSaveData()

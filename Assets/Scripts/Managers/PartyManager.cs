@@ -28,7 +28,7 @@ public class PartyManager : MonoBehaviour
         GetTeamFromSave();
     }
 
-    private void GetTeamFromSave()
+    public void GetTeamFromSave()
     {
         playerBugTeam = new List<Bug>();
         BugBox.instance.LoadParty(playerBugTeam);

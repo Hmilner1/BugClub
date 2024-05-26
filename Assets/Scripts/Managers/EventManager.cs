@@ -30,6 +30,7 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnStopMovement;
     public UnityEvent OnStartMovement;
     public CustomAttack OnPreformAttack = new CustomAttack();
+    public UnityEvent OnInteract;
     #endregion
 
     #region UI Events
@@ -39,6 +40,8 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnRefreshUI;
     public UnityEvent OnBattleEnd;
     public UnityEvent OnCloseItemSelection;
+    public UnityEvent OnPlayerInteractOverlap;
+    public UnityEvent OnplayerStopInteract;
     #endregion
 
     public void Step()
@@ -97,6 +100,21 @@ public class EventManager : MonoBehaviour
     public void OpenItemSelectionMenu()
     {
         OnCloseItemSelection?.Invoke();
+    }
+
+    public void InteractOverlap()
+    {
+        OnPlayerInteractOverlap?.Invoke();
+    }
+
+    public void InteractStop()
+    {
+        OnplayerStopInteract?.Invoke();
+    }
+
+    public void Interact()
+    {
+        OnInteract?.Invoke();
     }
 
 }
