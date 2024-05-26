@@ -81,7 +81,7 @@ public class BattleCanvas : MonoBehaviour
 
     private void UpdateEnemyInfo()
     {
-        Bug enemyBug = BugBox.instance.GetWildBug();
+        Bug enemyBug = BattleManager.instance.enemyBug;
         enemyBugSprite.sprite = BugBox.instance.getBugModel(enemyBug.baseBugIndex, true);
         enemyName.text = BugBox.instance.GetBugName(enemyBug.baseBugIndex);
         enemyLvl.text = "Lvl " + enemyBug.lvl.ToString();

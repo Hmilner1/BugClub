@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -58,12 +59,20 @@ public class BattleManager : MonoBehaviour
         currentState = BattleState.NON;
     }
 
+    public void PopulateTrainerTeam(Bug Team)
+    { 
+        enemyBug = Team;
+    }
+
     private void BattleBegin(bool Wild)
     {
+        if (Wild)
+        {
+            enemyBug = BugBox.instance.GetWildBug();
+            battleText.text = "You Found " + BugBox.instance.GetBugName(enemyBug.baseBugIndex) + "!";
+        }
         currentState = BattleState.start;
         playerBug = PartyManager.instance.playerBugTeam[0];
-        enemyBug = BugBox.instance.GetWildBug();
-        battleText.text = "You Found " + BugBox.instance.GetBugName(enemyBug.baseBugIndex) + "!";
         StartCoroutine(OpenBattle());
     }
 
@@ -71,9 +80,9 @@ public class BattleManager : MonoBehaviour
     {
         EventManager.instance.StopMovement();
         EventManager.instance.OpenBattleCanvas();
-        EventManager.instance.RefreshUI();
         battleCam.SetActive(true);
         battlePositions.SetActive(true);
+        EventManager.instance.RefreshUI();
 
         yield return new WaitForSeconds(battleSpeed);
 
