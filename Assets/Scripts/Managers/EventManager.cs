@@ -42,6 +42,8 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnCloseItemSelection;
     public UnityEvent OnPlayerInteractOverlap;
     public UnityEvent OnplayerStopInteract;
+    public UnityEvent OnEnemyKnockedOut;
+    public UnityEvent OnPlayerBugSwapped;
     #endregion
 
     public void Step()
@@ -117,4 +119,13 @@ public class EventManager : MonoBehaviour
         OnInteract?.Invoke();
     }
 
+    public void EnemyKnockedout()
+    { 
+        OnEnemyKnockedOut?.Invoke();
+    }
+
+    public void PlayerBugSwapped()
+    {
+        OnPlayerBugSwapped?.Invoke();
+    }
 }

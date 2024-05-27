@@ -39,6 +39,7 @@ public class BattleCanvas : MonoBehaviour
         EventManager.instance.OnOpenBattleCanvas.AddListener(OpenCanvas);
         EventManager.instance.OnCloseBattleCanvas.AddListener(CloseCanvas);
         EventManager.instance.OnRefreshParty.AddListener(UpdatePlayerInfo);
+        EventManager.instance.OnEnemyKnockedOut.AddListener(UpdateEnemyInfo);
     }
 
     private void OnDisable()
@@ -46,12 +47,13 @@ public class BattleCanvas : MonoBehaviour
         EventManager.instance.OnOpenBattleCanvas.RemoveListener(OpenCanvas);
         EventManager.instance.OnCloseBattleCanvas.RemoveListener(CloseCanvas);
         EventManager.instance.OnRefreshParty.RemoveListener(UpdatePlayerInfo);
+        EventManager.instance.OnEnemyKnockedOut.AddListener(UpdateEnemyInfo);
     }
     private void Update()
     {
         if (!battleStarted) { return; }
-        UpdateHealthBar(BattleManager.instance.enemyBug.currentHP, enemyHpSlider);
-        UpdateHealthBar(BattleManager.instance.playerBug.currentHP,playerHpSlider);
+        UpdateHealthBar(BattleManager.instance.enemyBug[0].currentHP, enemyHpSlider);
+        UpdateHealthBar(PartyManager.instance.playerBugTeam[0].currentHP,playerHpSlider);
     }
 
     private void OpenCanvas()
@@ -81,7 +83,7 @@ public class BattleCanvas : MonoBehaviour
 
     private void UpdateEnemyInfo()
     {
-        Bug enemyBug = BattleManager.instance.enemyBug;
+        Bug enemyBug = BattleManager.instance.enemyBug[0];
         enemyBugSprite.sprite = BugBox.instance.getBugModel(enemyBug.baseBugIndex, true);
         enemyName.text = BugBox.instance.GetBugName(enemyBug.baseBugIndex);
         enemyLvl.text = "Lvl " + enemyBug.lvl.ToString();

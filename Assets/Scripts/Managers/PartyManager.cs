@@ -28,6 +28,18 @@ public class PartyManager : MonoBehaviour
         GetTeamFromSave();
     }
 
+    public Bug GetFirstAliveBug()
+    { 
+        foreach (Bug bug in PlayerBugTeam)
+        {
+            if (bug.currentHP > 0)
+            { 
+                return bug;
+            }
+        }
+        return null;
+    }
+
     public void GetTeamFromSave()
     {
         playerBugTeam = new List<Bug>();

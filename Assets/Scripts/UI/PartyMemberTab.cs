@@ -95,6 +95,7 @@ public class PartyMemberTab : MonoBehaviour
             MoveDown();
         }
 
+        EventManager.instance.PlayerBugSwapped();
     }
 
     private void MoveUp()

@@ -21,8 +21,8 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private GameObject moveSelector;
 
-    public Bug playerBug { get; private set; }
-    public Bug enemyBug { get; private set; }
+    public List<Bug> playerBug { get; private set; }
+    public List<Bug> enemyBug { get; private set; }
 
     [SerializeField]
     private TMP_Text battleText;
@@ -46,12 +46,14 @@ public class BattleManager : MonoBehaviour
     {
         EventManager.instance.OnBattle.AddListener(BattleBegin);
         EventManager.instance.OnPreformAttack.AddListener(PlayerAttackSelect);
+        EventManager.instance.OnPlayerBugSwapped.AddListener(SwapPlayerBug);
     }
 
     private void OnDisable()
     {
         EventManager.instance.OnBattle.RemoveListener(BattleBegin);
         EventManager.instance.OnPreformAttack.RemoveListener(PlayerAttackSelect);
+        EventManager.instance.OnPlayerBugSwapped.RemoveListener(SwapPlayerBug);
     }
 
     private void Start()
@@ -59,7 +61,7 @@ public class BattleManager : MonoBehaviour
         currentState = BattleState.NON;
     }
 
-    public void PopulateTrainerTeam(Bug Team)
+    public void PopulateTrainerTeam(List<Bug> Team)
     { 
         enemyBug = Team;
     }
@@ -68,11 +70,16 @@ public class BattleManager : MonoBehaviour
     {
         if (Wild)
         {
-            enemyBug = BugBox.instance.GetWildBug();
-            battleText.text = "You Found " + BugBox.instance.GetBugName(enemyBug.baseBugIndex) + "!";
+            enemyBug = new List<Bug> { };
+            enemyBug.Add(BugBox.instance.GetWildBug());
+            battleText.text = "You Found " + BugBox.instance.GetBugName(enemyBug[0].baseBugIndex) + "!";
+        }
+        else 
+        {
+            battleText.text = "You Are Challenged To A Bug Battle!";
         }
         currentState = BattleState.start;
-        playerBug = PartyManager.instance.playerBugTeam[0];
+        playerBug = PartyManager.instance.playerBugTeam;
         StartCoroutine(OpenBattle());
     }
 
@@ -115,14 +122,14 @@ public class BattleManager : MonoBehaviour
         currentState = BattleState.attack;
         CloseActionMenu();
         moveSelector.SetActive(false);
-        BattleItem selectedItem = playerBug.equippedItems[Attack];
+        BattleItem selectedItem = playerBug[0].equippedItems[Attack];
         SpeedCheck(selectedItem, EnemyAttackSelect());
     }
 
     private BattleItem EnemyAttackSelect()
     {
         BattleItem[] enemyItems = new BattleItem[4];
-        enemyItems = enemyBug.equippedItems;
+        enemyItems = enemyBug[0].equippedItems;
 
         int rnd = Random.Range(0, enemyItems.Length);
 
@@ -131,24 +138,24 @@ public class BattleManager : MonoBehaviour
 
     private void SpeedCheck(BattleItem PlayerAttack, BattleItem EnemyAttack)
     {
-        if (playerBug.Speed > enemyBug.Speed)
+        if (playerBug[0].Speed > enemyBug[0].Speed)
         {
-            StartCoroutine(PreformAttacks(playerBug, enemyBug, PlayerAttack, EnemyAttack));
+            StartCoroutine(PreformAttacks(playerBug[0], enemyBug[0], PlayerAttack, EnemyAttack));
         }
-        else if (playerBug.Speed < enemyBug.Speed)
+        else if (playerBug[0].Speed < enemyBug[0].Speed)
         {
-            StartCoroutine(PreformAttacks(enemyBug, playerBug, EnemyAttack, PlayerAttack));
+            StartCoroutine(PreformAttacks(enemyBug[0], playerBug[0], EnemyAttack, PlayerAttack));
         }
         else
         {
             int rnd = Random.Range(1, 3);
             if (rnd == 1)
             {
-                StartCoroutine(PreformAttacks(playerBug, enemyBug, PlayerAttack, EnemyAttack));
+                StartCoroutine(PreformAttacks(playerBug[0], enemyBug[0], PlayerAttack, EnemyAttack));
             }
             else if (rnd == 2)
             {
-                StartCoroutine(PreformAttacks(enemyBug, playerBug, EnemyAttack, PlayerAttack));
+                StartCoroutine(PreformAttacks(enemyBug[0], playerBug[0], EnemyAttack, PlayerAttack));
             }
         }
     }
@@ -167,14 +174,14 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(battleSpeed);
 
         //Turn 2 
-        if (!EndCheck())
+        if (!KnockoutCheck())
         {
             battleText.text = BugBox.instance.GetBugName(TurnTwoBug.baseBugIndex) + " Used " + TurnTwo.Name;
             damageToDeal = ((0.5f * TurnTwo.Damage * TurnTwoBug.Attack) / TurnOneBug.Defence);
             TurnOneBug.currentHP = TurnOneBug.currentHP - (int)damageToDeal;
         }
 
-        if (EndCheck()) { StopCoroutine(PreformAttacks(TurnOneBug, TurnTwoBug, TurnOne, TurnTwo)); }
+        if (KnockoutCheck()) { StopCoroutine(PreformAttacks(TurnOneBug, TurnTwoBug, TurnOne, TurnTwo)); }
 
         //restarts move selection if game has not ended 
         StopCoroutine(PreformAttacks(TurnOneBug, TurnTwoBug, TurnOne, TurnTwo));
@@ -188,21 +195,80 @@ public class BattleManager : MonoBehaviour
         StopCoroutine(ReOpenActionMenu());
     }
 
-    private bool EndCheck()
+    private bool KnockoutCheck()
     {
-        if (playerBug.currentHP <= 0)
+        if (playerBug[0].currentHP <= 0)
         {
-            battleText.text = "You Lost The Bug Battle";
-            OnBattleEnd();
+            battleText.text = BugBox.instance.GetBugName(playerBug[0].baseBugIndex) + "Has Been KnockedOut";
+            EndCheck();
             return true;
         }
-        else if (enemyBug.currentHP <= 0)
+        else if (enemyBug[0].currentHP <= 0)
         {
-            battleText.text = "You Won!";
-            OnBattleEnd();
+            battleText.text = BugBox.instance.GetBugName(enemyBug[0].baseBugIndex) + "Has Been KnockedOut";
+            if (!EndCheck())
+            {
+                SwapEnemyBug();
+            }
             return true;
         }
         return false;
+    }
+
+    private bool EndCheck()
+    {
+        int playerBugAmount = playerBug.Count;
+        int enemyBugAmount = enemyBug.Count;
+        foreach (Bug bug in playerBug)
+        {
+            playerBugAmount -= 1;
+            if (playerBugAmount == 0)
+            {
+                if (bug.currentHP <= 0)
+                {
+                    battleText.text = "You Lost The Bug Battle";
+                    OnBattleEnd();
+                    return true;
+                }
+            }
+        }
+        foreach (Bug bug in enemyBug)
+        {
+            if (bug.currentHP <= 0)
+            {
+                enemyBugAmount -= 1;
+                if (enemyBugAmount == 0)
+                {
+                    battleText.text = "You Won!";
+                    OnBattleEnd();
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private void SwapEnemyBug()
+    {
+        if (enemyBug.Count > 1)
+        { 
+            Bug tempBug = enemyBug[0];
+            for (int i = 0; i < enemyBug.Count; i++)
+            {
+                if (enemyBug[i].currentHP > 0)
+                {
+                    enemyBug[0] = enemyBug[i];
+                    enemyBug[i] = tempBug;
+                    EventManager.instance.EnemyKnockedout();
+                    return;
+                }
+            }
+        }
+    }
+
+    private void SwapPlayerBug()
+    {
+        playerBug[0] = PartyManager.instance.playerBugTeam[0];
     }
 
     public void OnClickFight()
@@ -230,7 +296,7 @@ public class BattleManager : MonoBehaviour
         currentState = BattleState.battleEnd;
         CloseActionMenu();
         BugBox.instance.AddNewBug();
-        battleText.text = "You Obtained " + BugBox.instance.GetBugName(enemyBug.baseBugIndex);
+        battleText.text = "You Obtained " + BugBox.instance.GetBugName(enemyBug[0].baseBugIndex);
         yield return new WaitForSeconds(battleSpeed);
         OnBattleEnd();
         StopCoroutine(Catch());

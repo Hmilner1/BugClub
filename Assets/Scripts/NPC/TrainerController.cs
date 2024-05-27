@@ -42,7 +42,7 @@ public class TrainerController : MonoBehaviour
         {
             battled = true;
             MovePlayer(hit.transform.gameObject);
-            BattleManager.instance.PopulateTrainerTeam(bugTeam[0]);
+            BattleManager.instance.PopulateTrainerTeam(bugTeam);
             Debug.DrawRay(rayPos, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
             EventManager.instance.BattleStart(false);
         }
@@ -54,8 +54,12 @@ public class TrainerController : MonoBehaviour
 
     private void MovePlayer(GameObject Player)
     { 
+        GameObject playerToRotate = Player.GetComponentInChildren<PlayerController>().gameObject;
         Player.transform.position = new Vector3(BattlePos.position.x, Player.transform.position.y, BattlePos.position.z);
-        Player.transform.rotation = Quaternion.Euler(BattlePos.rotation.x, BattlePos.rotation.y, BattlePos.rotation.z);
+      
+        Vector3 directionToTarget = gameObject.transform.position - Player.transform.position;
+        directionToTarget.y = 0;
+        Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+        playerToRotate.transform.rotation = targetRotation;
     }
-
 }
