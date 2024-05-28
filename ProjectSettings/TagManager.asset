@@ -11,6 +11,7 @@ TagManager:
   - Up
   - Down
   - PartyUI
+  - BattleTab
   layers:
   - Default
   - TransparentFX

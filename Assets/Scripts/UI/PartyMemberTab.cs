@@ -34,6 +34,15 @@ public class PartyMemberTab : MonoBehaviour
         ManageButtons();
         PopulateMoves();
         PartyCanvas = GameObject.FindGameObjectWithTag("PartyUI").GetComponent<Canvas>();
+
+        if (tag == "BattleTab")
+        {
+            if (PartyManager.instance.playerBugTeam[partyIndex].currentHP <= 0)
+            { 
+                Button selectButton = this.GetComponentInChildren<Button>();
+                selectButton.interactable= false;
+            }
+        }
     }
 
     private void RefreshPartyUI()
@@ -94,6 +103,14 @@ public class PartyMemberTab : MonoBehaviour
         {
             MoveDown();
         }
+
+        EventManager.instance.PlayerBugSwapped();
+    }
+
+    public void SelectBug()
+    { 
+        PartyManager.instance.PartySwap(0, partyIndex);
+        EventManager.instance.RefreshParty();
 
         EventManager.instance.PlayerBugSwapped();
     }

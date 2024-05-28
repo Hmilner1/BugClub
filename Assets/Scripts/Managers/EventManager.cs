@@ -31,6 +31,7 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnStartMovement;
     public CustomAttack OnPreformAttack = new CustomAttack();
     public UnityEvent OnInteract;
+    public UnityEvent OnPlayerLost;
     #endregion
 
     #region UI Events
@@ -43,6 +44,7 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnPlayerInteractOverlap;
     public UnityEvent OnplayerStopInteract;
     public UnityEvent OnEnemyKnockedOut;
+    public UnityEvent OnPlayerKnockedOut;
     public UnityEvent OnPlayerBugSwapped;
     #endregion
 
@@ -124,8 +126,18 @@ public class EventManager : MonoBehaviour
         OnEnemyKnockedOut?.Invoke();
     }
 
+    public void PlayerKnockedout()
+    {
+        OnPlayerKnockedOut?.Invoke();
+    }
+
     public void PlayerBugSwapped()
     {
         OnPlayerBugSwapped?.Invoke();
+    }
+
+    public void PlayerLost()
+    { 
+        OnPlayerLost?.Invoke();
     }
 }

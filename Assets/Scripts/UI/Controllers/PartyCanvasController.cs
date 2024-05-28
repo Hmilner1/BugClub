@@ -9,11 +9,15 @@ public class PartyCanvasController : MonoBehaviour
     GameObject battlePartyTabPrefab;
     [SerializeField]
     GameObject partyPanel;
+    [SerializeField]
+    GameObject closeButton;
 
 
     public void UpdateBattleParty()
     {
         if (PartyManager.instance.playerBugTeam.Count == 0) { return; }
+
+        closeButton.SetActive(false);
 
         for (int i = 0; i < PartyManager.instance.playerBugTeam.Count; i++)
         {
@@ -28,11 +32,12 @@ public class PartyCanvasController : MonoBehaviour
     {
         foreach (Transform tab in partyPanel.transform)
         {
-            if (tab.gameObject.tag == "PartyTab")
+            if (tab.gameObject.tag == "BattleTab")
             {
                 Destroy(tab.gameObject);
             }
         }
+        closeButton.SetActive(true);
     }
 
     public void UpdateParty()

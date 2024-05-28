@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     private float groundDistance;
     [SerializeField]
     private GameObject InteractCanvas;
+    [SerializeField]
+    private Transform playerSpawn;
 
     private CharacterController characterController;
     
@@ -39,6 +41,7 @@ public class PlayerController : MonoBehaviour
         EventManager.instance.OnStartMovement.AddListener(EnableMovement);
         EventManager.instance.OnPlayerInteractOverlap.AddListener(EnableInteract);
         EventManager.instance.OnplayerStopInteract.AddListener(DisableInteract);
+        EventManager.instance.OnPlayerLost.AddListener(RespawnPlayer);
         playerControls.Player.Interact.started += OnInteraction;
         playerControls.Player.Enable();
 
@@ -50,6 +53,7 @@ public class PlayerController : MonoBehaviour
         EventManager.instance.OnStartMovement.RemoveListener(EnableMovement);
         EventManager.instance.OnPlayerInteractOverlap.RemoveListener(EnableInteract);
         EventManager.instance.OnplayerStopInteract.RemoveListener(DisableInteract);
+        EventManager.instance.OnPlayerLost.RemoveListener(RespawnPlayer);
         playerControls.Player.Interact.started -= OnInteraction;
         playerControls.Player.Disable();
     }
@@ -119,5 +123,11 @@ public class PlayerController : MonoBehaviour
     { 
         InteractCanvas.SetActive(false);
         canInteract = false;
+    }
+
+    private void RespawnPlayer()
+    {
+        transform.position = playerSpawn.position;
+        BugBox.instance.HealAll();
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
@@ -28,6 +29,12 @@ public class BattleManager : MonoBehaviour
     private TMP_Text battleText;
     [SerializeField]
     private float battleSpeed;
+    [SerializeField]
+    private GameObject PartyPanel;
+    [SerializeField]
+    private Button runButton;
+    [SerializeField]
+    private Button catchButton;
 
     private void Awake()
     {
@@ -73,9 +80,13 @@ public class BattleManager : MonoBehaviour
             enemyBug = new List<Bug> { };
             enemyBug.Add(BugBox.instance.GetWildBug());
             battleText.text = "You Found " + BugBox.instance.GetBugName(enemyBug[0].baseBugIndex) + "!";
+            runButton.interactable = true;
+            catchButton.interactable = true;
         }
         else 
         {
+            runButton.interactable = false;
+            catchButton.interactable = false;
             battleText.text = "You Are Challenged To A Bug Battle!";
         }
         currentState = BattleState.start;
@@ -179,12 +190,24 @@ public class BattleManager : MonoBehaviour
             battleText.text = BugBox.instance.GetBugName(TurnTwoBug.baseBugIndex) + " Used " + TurnTwo.Name;
             damageToDeal = ((0.5f * TurnTwo.Damage * TurnTwoBug.Attack) / TurnOneBug.Defence);
             TurnOneBug.currentHP = TurnOneBug.currentHP - (int)damageToDeal;
+            if (KnockoutCheck()) { StopCoroutine(PreformAttacks(TurnOneBug, TurnTwoBug, TurnOne, TurnTwo)); }
         }
 
-        if (KnockoutCheck()) { StopCoroutine(PreformAttacks(TurnOneBug, TurnTwoBug, TurnOne, TurnTwo)); }
 
         //restarts move selection if game has not ended 
         StopCoroutine(PreformAttacks(TurnOneBug, TurnTwoBug, TurnOne, TurnTwo));
+        StartCoroutine(ReOpenActionMenu());
+    }
+
+    private IEnumerator EnemyPreformAttackOnly(BattleItem ItemUsed)
+    {
+        yield return new WaitForSeconds(battleSpeed);
+
+        battleText.text = BugBox.instance.GetBugName(enemyBug[0].baseBugIndex) + " Used " + ItemUsed.Name;
+        float damageToDeal = ((0.5f * ItemUsed.Damage * enemyBug[0].Attack) / playerBug[0].Defence);
+        playerBug[0].currentHP = playerBug[0].currentHP - (int)damageToDeal;
+        if (KnockoutCheck()) { StopCoroutine(EnemyPreformAttackOnly(ItemUsed)); }
+        StopCoroutine(EnemyPreformAttackOnly(ItemUsed));
         StartCoroutine(ReOpenActionMenu());
     }
 
@@ -200,7 +223,12 @@ public class BattleManager : MonoBehaviour
         if (playerBug[0].currentHP <= 0)
         {
             battleText.text = BugBox.instance.GetBugName(playerBug[0].baseBugIndex) + "Has Been KnockedOut";
-            EndCheck();
+            if (!EndCheck())
+            {
+                PartyPanel.SetActive(true);
+                PartyCanvasController canvasController = PartyPanel.GetComponent<PartyCanvasController>();
+                canvasController.UpdateBattleParty();
+            }
             return true;
         }
         else if (enemyBug[0].currentHP <= 0)
@@ -219,15 +247,19 @@ public class BattleManager : MonoBehaviour
     {
         int playerBugAmount = playerBug.Count;
         int enemyBugAmount = enemyBug.Count;
+        Debug.Log(playerBug.Count);
         foreach (Bug bug in playerBug)
         {
-            playerBugAmount -= 1;
-            if (playerBugAmount == 0)
+            if (bug.currentHP <= 0)
             {
-                if (bug.currentHP <= 0)
+                playerBugAmount -= 1;
+                Debug.Log(playerBugAmount);
+
+                if (playerBugAmount == 0)
                 {
                     battleText.text = "You Lost The Bug Battle";
                     OnBattleEnd();
+                    EventManager.instance.PlayerLost();
                     return true;
                 }
             }
@@ -268,7 +300,21 @@ public class BattleManager : MonoBehaviour
 
     private void SwapPlayerBug()
     {
-        playerBug[0] = PartyManager.instance.playerBugTeam[0];
+        if (playerBug[0].currentHP <= 0)
+        {
+            playerBug[0] = PartyManager.instance.playerBugTeam[0];
+            PartyCanvasController canvasController = PartyPanel.GetComponent<PartyCanvasController>();
+            canvasController.RemoveBattleParty();
+            PartyPanel.SetActive(false);
+        }
+        else
+        {
+            playerBug[0] = PartyManager.instance.playerBugTeam[0];
+            PartyCanvasController canvasController = PartyPanel.GetComponent<PartyCanvasController>();
+            canvasController.RemoveBattleParty();
+            PartyPanel.SetActive(false);
+            StartCoroutine(EnemyPreformAttackOnly(EnemyAttackSelect()));
+        }
     }
 
     public void OnClickFight()
