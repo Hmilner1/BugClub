@@ -300,6 +300,7 @@ public class BattleManager : MonoBehaviour
 
     private void SwapPlayerBug()
     {
+        if (currentState != BattleState.moveSelection || currentState != BattleState.attack) { return; }
         if (playerBug[0].currentHP <= 0)
         {
             playerBug[0] = PartyManager.instance.playerBugTeam[0];
