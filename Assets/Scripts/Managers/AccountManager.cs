@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 
 public class AccountManager : MonoBehaviour
 {
+    public static AccountManager instance;
+
     [SerializeField]
     TMP_Text idText;
     [SerializeField]
@@ -18,10 +20,18 @@ public class AccountManager : MonoBehaviour
     [SerializeField]
     GameObject signInButton;
 
-    string m_ExternalIds;
-
     async void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         await UnityServices.InitializeAsync();
         PlayerAccountService.Instance.SignedIn += SignInWithUnity;
         await SignInAsync();
@@ -108,6 +118,19 @@ public class AccountManager : MonoBehaviour
     void SetException(Exception ex)
     {
         exceptionText.text = ex != null ? $"{ex.GetType().Name}: {ex.Message}" : "";
+    }
+
+    public bool SignedIn()
+    {
+        if (AuthenticationService.Instance.PlayerId == null)
+        {
+            return false;
+        }
+        else if (AuthenticationService.Instance.PlayerId != null)
+        {
+            return true;
+        }
+        return false;
     }
 
 }

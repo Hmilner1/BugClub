@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ public class BugBox : MonoBehaviour
 {
     public static BugBox instance;
 
-    private BugBoxData bugData;
+    public BugBoxData bugData;
     public List<Bug> allownedBugs = new List<Bug>();
 
     [SerializeField]
@@ -35,7 +36,7 @@ public class BugBox : MonoBehaviour
             Destroy(gameObject);
         }
 
-        LoadBugSaveData();
+        //LoadBugSaveData();
     }
 
 
@@ -185,5 +186,35 @@ public class BugBox : MonoBehaviour
     {
         bugData.PlaysOwnedBugs = allownedBugs;
         LocalSaveManager.SaveBugData(bugData);
+    }
+
+    public void CloudSaveBugs()
+    {
+        bugData.PlaysOwnedBugs = allownedBugs;
+        CloudSaveManager.instance.SaveBugData(bugData);
+    }
+
+    public async void CloudLoadBugs()
+    {
+        CloudSaveManager.instance.LoadBugSave();
+
+        await Task.Delay(1000);
+        if (bugData == null)
+        {
+            bugData = new BugBoxData(allownedBugs);
+            return;
+        }
+        foreach (Bug bugs in bugData.PlaysOwnedBugs)
+        {
+            Bug newBug = new Bug(bugs.baseBugIndex, bugs.lvl, bugs.bugClass, bugs.currentHP, bugs.equippedItems);
+
+            for (int i = 0; i < newBug.equippedItems.Length; i++)
+            {
+                BattleItem newItem = new BattleItem(newBug.equippedItems[i].itemIndex);
+                newBug.equippedItems[i] = newItem;
+            }
+            allownedBugs.Add(newBug);
+        }
+        SaveBugData();
     }
 }
