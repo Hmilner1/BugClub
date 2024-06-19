@@ -10,7 +10,7 @@ public class BugBox : MonoBehaviour
     public static BugBox instance;
 
     public BugBoxData bugData;
-    public List<Bug> allownedBugs = new List<Bug>();
+    public List<Bug> allownedBugs;
 
     [SerializeField]
     private BugDataBase bugDataBase;
@@ -35,7 +35,7 @@ public class BugBox : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        allownedBugs = new List<Bug>();
         //LoadBugSaveData();
     }
 
@@ -190,7 +190,8 @@ public class BugBox : MonoBehaviour
 
     public void CloudSaveBugs()
     {
-        bugData.PlaysOwnedBugs = allownedBugs;
+        bugData = new BugBoxData(allownedBugs);
+        //bugData.PlaysOwnedBugs = allownedBugs;
         CloudSaveManager.instance.SaveBugData(bugData);
     }
 
@@ -199,22 +200,29 @@ public class BugBox : MonoBehaviour
         CloudSaveManager.instance.LoadBugSave();
 
         await Task.Delay(1000);
+
         if (bugData == null)
         {
-            bugData = new BugBoxData(allownedBugs);
+            Debug.Log("Save Not Found");
+            SceneController.Instance.LoadSceneAdditive("CharacterSetup");
+            //bugData = new BugBoxData(allownedBugs);
             return;
         }
-        foreach (Bug bugs in bugData.PlaysOwnedBugs)
+        else
         {
-            Bug newBug = new Bug(bugs.baseBugIndex, bugs.lvl, bugs.bugClass, bugs.currentHP, bugs.equippedItems);
 
-            for (int i = 0; i < newBug.equippedItems.Length; i++)
+            foreach (Bug bugs in bugData.PlaysOwnedBugs)
             {
-                BattleItem newItem = new BattleItem(newBug.equippedItems[i].itemIndex);
-                newBug.equippedItems[i] = newItem;
+                Bug newBug = new Bug(bugs.baseBugIndex, bugs.lvl, bugs.bugClass, bugs.currentHP, bugs.equippedItems);
+
+                for (int i = 0; i < newBug.equippedItems.Length; i++)
+                {
+                    BattleItem newItem = new BattleItem(newBug.equippedItems[i].itemIndex);
+                    newBug.equippedItems[i] = newItem;
+                }
+                allownedBugs.Add(newBug);
             }
-            allownedBugs.Add(newBug);
         }
-        SaveBugData();
+        //SaveBugData();
     }
 }

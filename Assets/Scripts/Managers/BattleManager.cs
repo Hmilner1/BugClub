@@ -247,7 +247,6 @@ public class BattleManager : MonoBehaviour
     {
         int playerBugAmount = playerBug.Count;
         int enemyBugAmount = enemyBug.Count;
-        Debug.Log(playerBug.Count);
         foreach (Bug bug in playerBug)
         {
             if (bug.currentHP <= 0)

@@ -38,7 +38,7 @@ public class CloudSaveManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("key not found");
+            BugBox.instance.bugData = null;
         }
     }
 

@@ -50,6 +50,33 @@ public class SceneController : MonoBehaviour
         loadCanvas.SetActive(false);
     }
 
+    public async void LoadMainGame()
+    {
+        target = 0;
+        progressBar.fillAmount = 0;
+
+        var scene = SceneManager.LoadSceneAsync("DevelopmentScene");
+        scene.allowSceneActivation = false;
+
+        loadCanvas.SetActive(true);
+
+        do
+        {
+            await Task.Delay(100);
+            target = scene.progress;
+        }
+        while (scene.progress < 0.9f);
+
+        await Task.Delay(1000);
+        scene.allowSceneActivation = true;
+        await Task.Delay(10);
+        loadCanvas.SetActive(false);
+
+        PartyManager party = GameObject.Find("BugBoxManager").GetComponent<PartyManager>();
+        party.enabled = true;
+
+    }
+
     public async void LoadSceneAdditive(string sceneName)
     {
         target = 0;

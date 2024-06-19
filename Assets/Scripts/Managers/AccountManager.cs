@@ -109,6 +109,7 @@ public class AccountManager : MonoBehaviour
             signOutButton.SetActive(true);
             signInButton.SetActive(false);
             statusBuilder.AppendLine($"PlayerId: <b>{AuthenticationService.Instance.PlayerId}</b>");
+            BugBox.instance.CloudLoadBugs();
         }
 
         idText.text = statusBuilder.ToString();
