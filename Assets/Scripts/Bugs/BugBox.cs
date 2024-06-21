@@ -35,22 +35,7 @@ public class BugBox : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        allownedBugs = new List<Bug>();
-        //LoadBugSaveData();
-    }
 
-
-    private void Update()
-    {
-        if (Input.GetKeyDown("o"))
-        {
-            SaveBugData();
-        }
-
-        if (Input.GetKeyDown("p"))
-        {
-            LoadBugSaveData();
-        }
     }
 
     public Sprite getBugModel(int bugIndex, bool front)
@@ -190,22 +175,24 @@ public class BugBox : MonoBehaviour
 
     public void CloudSaveBugs()
     {
-        bugData = new BugBoxData(allownedBugs);
-        //bugData.PlaysOwnedBugs = allownedBugs;
+        bugData.PlaysOwnedBugs = allownedBugs;
         CloudSaveManager.instance.SaveBugData(bugData);
     }
 
     public async void CloudLoadBugs()
     {
+        allownedBugs = new List<Bug>();
+
+        bugData = new BugBoxData(allownedBugs);
+
         CloudSaveManager.instance.LoadBugSave();
 
         await Task.Delay(1000);
 
-        if (bugData == null)
+        if (bugData.PlaysOwnedBugs == null)
         {
             Debug.Log("Save Not Found");
             SceneController.Instance.LoadSceneAdditive("CharacterSetup");
-            //bugData = new BugBoxData(allownedBugs);
             return;
         }
         else
@@ -223,6 +210,5 @@ public class BugBox : MonoBehaviour
                 allownedBugs.Add(newBug);
             }
         }
-        //SaveBugData();
     }
 }

@@ -35,7 +35,13 @@ public class AccountManager : MonoBehaviour
         await UnityServices.InitializeAsync();
         PlayerAccountService.Instance.SignedIn += SignInWithUnity;
         await SignInAsync();
-        
+
+
+        if (AuthenticationService.Instance.IsSignedIn == false)
+        {
+            Canvas accountCanvas = gameObject.GetComponentInChildren<Canvas>();
+            accountCanvas.enabled= true;
+        }
     }
 
     async Task SignInAsync()
