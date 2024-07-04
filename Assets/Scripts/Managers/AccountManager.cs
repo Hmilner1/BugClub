@@ -6,6 +6,9 @@ using Unity.Services.Core;
 using UnityEngine;
 using TMPro;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
+using System.Collections.Generic;
+using Unity.Services.CloudSave;
 
 public class AccountManager : MonoBehaviour
 {
@@ -19,6 +22,8 @@ public class AccountManager : MonoBehaviour
     GameObject signOutButton;
     [SerializeField]
     GameObject signInButton;
+
+    private const string FIRST_LOGIN_KEY = "isFirstLogin";
 
     async void Awake()
     {
@@ -71,8 +76,6 @@ public class AccountManager : MonoBehaviour
             Debug.LogException(ex);
             SetException(ex);
         }
-
-        
     }
 
     public void SignOut()
@@ -115,11 +118,49 @@ public class AccountManager : MonoBehaviour
             signOutButton.SetActive(true);
             signInButton.SetActive(false);
             statusBuilder.AppendLine($"PlayerId: <b>{AuthenticationService.Instance.PlayerId}</b>");
-            BugBox.instance.CloudLoadBugs();
+            CheckFirstLogin();
         }
 
         idText.text = statusBuilder.ToString();
         SetException(null);
+    }
+    private async void CheckFirstLogin()
+    {
+
+        try
+        {
+
+            var data = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { FIRST_LOGIN_KEY });
+
+            if (data.TryGetValue(FIRST_LOGIN_KEY, out var isFirstLoginString))
+            {
+                bool isFirstLogin = bool.Parse(isFirstLoginString.Value.GetAsString());
+
+                if (isFirstLogin)
+                {
+                    Debug.Log("Welcome, new player!");
+                    await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object> { { FIRST_LOGIN_KEY, false.ToString() } });
+                    SceneController.Instance.LoadSceneAdditive("CharacterSetup");
+                }
+                else
+                {
+                    Debug.Log("Welcome back!");
+                    BugBox.instance.CloudLoadBugs();
+                }
+            }
+            else
+            {
+
+                Debug.Log("Welcome, new player!");
+                await CloudSaveService.Instance.Data.Player.SaveAsync(new Dictionary<string, object> { { FIRST_LOGIN_KEY, false.ToString() } });
+                SceneController.Instance.LoadSceneAdditive("CharacterSetup");
+            }
+        }
+        catch (CloudSaveException e)
+        {
+            Debug.LogError("Error");
+
+        }
     }
 
     void SetException(Exception ex)

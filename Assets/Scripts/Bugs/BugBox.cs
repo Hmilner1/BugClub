@@ -189,26 +189,16 @@ public class BugBox : MonoBehaviour
 
         await Task.Delay(1000);
 
-        if (bugData.PlaysOwnedBugs == null)
+        foreach (Bug bugs in bugData.PlaysOwnedBugs)
         {
-            Debug.Log("Save Not Found");
-            SceneController.Instance.LoadSceneAdditive("CharacterSetup");
-            return;
-        }
-        else
-        {
+            Bug newBug = new Bug(bugs.baseBugIndex, bugs.lvl, bugs.bugClass, bugs.currentHP, bugs.equippedItems);
 
-            foreach (Bug bugs in bugData.PlaysOwnedBugs)
+            for (int i = 0; i < newBug.equippedItems.Length; i++)
             {
-                Bug newBug = new Bug(bugs.baseBugIndex, bugs.lvl, bugs.bugClass, bugs.currentHP, bugs.equippedItems);
-
-                for (int i = 0; i < newBug.equippedItems.Length; i++)
-                {
-                    BattleItem newItem = new BattleItem(newBug.equippedItems[i].itemIndex);
-                    newBug.equippedItems[i] = newItem;
-                }
-                allownedBugs.Add(newBug);
+                BattleItem newItem = new BattleItem(newBug.equippedItems[i].itemIndex);
+                newBug.equippedItems[i] = newItem;
             }
+            allownedBugs.Add(newBug);
         }
     }
 }
