@@ -67,9 +67,9 @@ public class SceneController : MonoBehaviour
         }
         while (scene.progress < 0.9f);
 
-        await Task.Delay(1000);
+        //await Task.Delay(1000);
         scene.allowSceneActivation = true;
-        await Task.Delay(10);
+        await Task.Delay(1400);
         loadCanvas.SetActive(false);
 
         PartyManager party = GameObject.Find("BugBoxManager").GetComponent<PartyManager>();

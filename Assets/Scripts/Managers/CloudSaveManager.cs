@@ -47,5 +47,25 @@ public class CloudSaveManager : MonoBehaviour
         await CloudSaveService.Instance.Data.Player.SaveAsync(data);
     }
 
+    public async void LoadPlayerSave()
+    {
+        var PlayerData = await CloudSaveService.Instance.Data.Player.LoadAsync(new HashSet<string> { "Player" });
+        if (PlayerData.TryGetValue("Player", out var keyName))
+        {
+            string json = keyName.Value.GetAsString();
+            PlayerInfo.instance.Player = JsonUtility.FromJson<PlayerBase>(json);
+        }
+        else
+        {
+            PlayerInfo.instance.DefaultLocation();
+        }
+    }
+
+    public async void SavePlayerData(PlayerBase playerData)
+    {
+        var data = new Dictionary<string, object> { { "Player", playerData } };
+        await CloudSaveService.Instance.Data.Player.SaveAsync(data);
+    }
+
 
 }

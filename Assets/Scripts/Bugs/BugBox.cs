@@ -66,6 +66,7 @@ public class BugBox : MonoBehaviour
     {
         allownedBugs.Add(currentWildBug);
         SaveBugData();
+        CloudSaveBugs();
         EventManager.instance.OverWorld();
     }
 

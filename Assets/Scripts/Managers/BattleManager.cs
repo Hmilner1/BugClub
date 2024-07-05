@@ -299,11 +299,11 @@ public class BattleManager : MonoBehaviour
 
     private void SwapPlayerBug()
     {
-        Debug.Log("hit1");
+        if (currentState == BattleState.NON) { return; }
 
         if (playerBug[0].currentHP <= 0)
         {
-            Debug.Log("hit2");
+          
 
             playerBug[0] = PartyManager.instance.playerBugTeam[0];
             PartyCanvasController canvasController = PartyPanel.GetComponent<PartyCanvasController>();
@@ -313,7 +313,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("hit3");
+            
             playerBug[0] = PartyManager.instance.playerBugTeam[0];
             PartyCanvasController canvasController = PartyPanel.GetComponent<PartyCanvasController>();
             canvasController.RemoveBattleParty();
