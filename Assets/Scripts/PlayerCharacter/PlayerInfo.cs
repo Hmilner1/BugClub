@@ -18,10 +18,6 @@ public class PlayerInfo : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
 
         loadData();
     }
