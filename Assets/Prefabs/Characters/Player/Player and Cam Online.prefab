@@ -880,11 +880,10 @@ GameObject:
   - component: {fileID: 4957296051907514688}
   - component: {fileID: 48152757001619147}
   - component: {fileID: 3118743305917900037}
-  - component: {fileID: 8217866036952664142}
-  - component: {fileID: 40045524333614122}
-  - component: {fileID: 3960300578198432713}
+  - component: {fileID: 7820238533220186330}
+  - component: {fileID: 3971319931063766097}
   - component: {fileID: 9154926638195527607}
-  - component: {fileID: 9030269367447464977}
+  - component: {fileID: 6191465388204573143}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -984,25 +983,7 @@ MonoBehaviour:
   playerSpawn: {fileID: 0}
   playerCam: {fileID: 2593367689770138654}
   m_Animator: {fileID: 5376071994749445015}
---- !u!114 &8217866036952664142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2917109642893032643}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b75f9226a52068b459617c181302adbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smoothTime: 0.05
-  speed: 2.5
-  groundDistance: 0
-  InteractCanvas: {fileID: 5488906557417756882}
-  playerSpawn: {fileID: 0}
-  m_Animator: {fileID: 5376071994749445015}
---- !u!114 &40045524333614122
+--- !u!114 &7820238533220186330
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1011,10 +992,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2917109642893032643}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c37298ebfc136d4fbe6106eaae17a9b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a81aee9c402a924ea95c36cce5da918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3960300578198432713
+--- !u!114 &3971319931063766097
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1023,7 +1004,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2917109642893032643}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b70485a0c26673e42ae90d3c86938df6, type: 3}
+  m_Script: {fileID: 11500000, guid: 5a815b0bf6ac3124ea141b9864973059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &9154926638195527607
@@ -1033,7 +1014,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2917109642893032643}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 501f6b41410b6fa4f8c7d5f06318dcdc, type: 3}
   m_Name: 
@@ -1044,7 +1025,7 @@ MonoBehaviour:
     z: 0
   playerPos: {fileID: 7699105135173988500}
   MainSpawn: {x: -32.52, y: 0.985, z: 35.6}
---- !u!114 &9030269367447464977
+--- !u!114 &6191465388204573143
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1244,13 +1225,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1001621709056543852}
   - component: {fileID: 5066038365429741877}
+  - component: {fileID: 5035747551794409234}
   m_Layer: 0
   m_Name: BattlePositions
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1001621709056543852
 Transform:
   m_ObjectHideFlags: 0
@@ -1285,6 +1267,20 @@ MonoBehaviour:
   origonalPos: {x: 0.3, y: 0.3, z: 0.3}
   bobOffset: {x: 0, y: 0.01, z: 0}
   duration: 0.5
+--- !u!114 &5035747551794409234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3681781400257860594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb47170890de184fa68f36a6d02a8a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBugSprite: {fileID: 6572083631693007644}
+  enemyBugSprite: {fileID: 3412425603407365665}
 --- !u!1 &3761277030602514863
 GameObject:
   m_ObjectHideFlags: 0
@@ -2073,7 +2069,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7699105135173988500}
-  - component: {fileID: 3350355357674992836}
+  - component: {fileID: 1602696554295759556}
   m_Layer: 0
   m_Name: Player and Cam Online
   m_TagString: Untagged
@@ -2100,7 +2096,7 @@ Transform:
   - {fileID: 5612746834938009169}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3350355357674992836
+--- !u!114 &1602696554295759556
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2112,7 +2108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 432883116
+  GlobalObjectIdHash: 1434696805
   InScenePlacedSourceGlobalObjectIdHash: 0
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
@@ -2263,7 +2259,7 @@ GameObject:
   - component: {fileID: 6572083631693007644}
   m_Layer: 0
   m_Name: PlayerSpawn
-  m_TagString: Untagged
+  m_TagString: OnlinePlayerBug
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2612,7 +2608,7 @@ GameObject:
   - component: {fileID: 3412425603407365665}
   m_Layer: 0
   m_Name: EnemySpawn
-  m_TagString: Untagged
+  m_TagString: OnlineEnemyBug
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3039,7 +3035,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8217866036952664142}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
         m_MethodName: Interaction
         m_Mode: 1

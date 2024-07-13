@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using Unity.Collections.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static BattleManager;
@@ -49,8 +50,24 @@ public class BattleCanvas : MonoBehaviour
         EventManager.instance.OnRefreshParty.RemoveListener(UpdatePlayerInfo);
         EventManager.instance.OnEnemyKnockedOut.AddListener(UpdateEnemyInfo);
     }
+
+    private void Start()
+    {
+       
+    }
     private void Update()
     {
+        if (playerBugSprite != null) { return; }
+        else
+        {
+            playerBugSprite = GameObject.FindGameObjectWithTag("OnlinePlayerBug").GetComponent<SpriteRenderer>();
+            enemyBugSprite = GameObject.FindGameObjectWithTag("OnlineEnemyBug").GetComponent<SpriteRenderer>();
+            if (playerBugSprite != null)
+            {
+                playerBugSprite.transform.parent.gameObject.SetActive(false);
+                enemyBugSprite.transform.parent.gameObject.SetActive(false);
+            }
+        }
         if (!battleStarted) { return; }
         UpdateHealthBar(BattleManager.instance.enemyBug[0].currentHP, enemyHpSlider);
         UpdateHealthBar(PartyManager.instance.playerBugTeam[0].currentHP,playerHpSlider);

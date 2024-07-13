@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class InteractionObject : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class InteractionObject : MonoBehaviour
     public enum InteractionType
     { 
         Heal,
+        Online,
         Dialogue
     }
 
@@ -41,6 +43,9 @@ public class InteractionObject : MonoBehaviour
         {
             case InteractionType.Heal:
                 BugBox.instance.HealAll();
+                break;
+            case InteractionType.Online:
+                SceneController.Instance.LoadScene("MultiplayerScene");
                 break;
             case InteractionType.Dialogue:
                 break;

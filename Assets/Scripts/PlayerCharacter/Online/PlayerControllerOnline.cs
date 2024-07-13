@@ -77,7 +77,7 @@ public class PlayerControllerOnline : NetworkBehaviour
 
     private void DisableMovement()
     {
-
+        if (!IsOwner) { return; }
         canMove = false;
         m_Animator.SetBool("IsWalking", false);
         m_Animator.SetFloat("Velocity", 0);
@@ -86,6 +86,7 @@ public class PlayerControllerOnline : NetworkBehaviour
 
     private void EnableMovement()
     {
+        if (!IsOwner) { return; }
         canMove = true;
     }
 
@@ -113,11 +114,13 @@ public class PlayerControllerOnline : NetworkBehaviour
 
     private void OnInteraction(InputAction.CallbackContext context)
     {
+        if (!IsOwner) { return; }
         Interaction();
     }
 
     public void Interaction()
     {
+        if (!IsOwner) { return; }
         if (canInteract)
         {
             EventManager.instance.Interact();
@@ -127,18 +130,21 @@ public class PlayerControllerOnline : NetworkBehaviour
 
     private void EnableInteract()
     {
+        if (!IsOwner) { return; }
         InteractCanvas.SetActive(true);
         canInteract = true;
     }
 
     private void DisableInteract()
     {
+        if (!IsOwner) { return; }
         InteractCanvas.SetActive(false);
         canInteract = false;
     }
 
     private void RespawnPlayer()
     {
+        if (!IsOwner) { return; }
         transform.position = playerSpawn.position;
         BugBox.instance.HealAll();
     }

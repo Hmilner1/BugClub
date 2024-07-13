@@ -12,6 +12,8 @@ TagManager:
   - Down
   - PartyUI
   - BattleTab
+  - OnlinePlayerBug
+  - OnlineEnemyBug
   layers:
   - Default
   - TransparentFX

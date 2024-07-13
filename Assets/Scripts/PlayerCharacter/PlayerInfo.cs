@@ -24,7 +24,7 @@ public class PlayerInfo : MonoBehaviour
 
     public async void loadData()
     {
-        Player = new PlayerBase(0, 0, 0);
+        Player = new PlayerBase(MainSpawn.x, MainSpawn.y, MainSpawn.z);
         CloudSaveManager.instance.LoadPlayerSave();
         await Task.Delay(1000);
         playerPos.position = new Vector3(Player.x, Player.y, Player.z);
@@ -34,7 +34,6 @@ public class PlayerInfo : MonoBehaviour
     {
         Player.x = -32;
         Player.z = 36;
-
     }
 
     public void SavePlayerLocation(Vector3 locationNum)
