@@ -5,12 +5,18 @@ public class InteractionObject : MonoBehaviour
 {
     [SerializeField]
     public InteractionType typeOfInteration;
+    private bool isActive;
 
     public enum InteractionType
     { 
         Heal,
         Online,
         Dialogue
+    }
+
+    private void Start()
+    {
+        isActive = false;
     }
 
     private void OnEnable()
@@ -28,31 +34,31 @@ public class InteractionObject : MonoBehaviour
         if (other.tag == "Player")
         {
             EventManager.instance.InteractOverlap();
-            
+            isActive = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         EventManager.instance.InteractStop();
+        isActive = false;
     }
 
     private void Interact()
     {
-        switch (typeOfInteration)
+        if (!isActive) { return; }
+        
+        if (typeOfInteration == InteractionType.Heal)
         {
-            case InteractionType.Heal:
-                BugBox.instance.HealAll();
-                break;
-            case InteractionType.Online:
-                SceneController.Instance.LoadScene("MultiplayerScene");
-                break;
-            case InteractionType.Dialogue:
-                break;
+            BugBox.instance.HealAll();
+
+        }
+        else if (typeOfInteration == InteractionType.Online)
+        {
+            SceneController.Instance.LoadScene("MultiplayerScene");
+            SceneController.Instance.LoadSceneAdditive("Multiplayer Lobby");
         }
     }
-
-
 }
 
 

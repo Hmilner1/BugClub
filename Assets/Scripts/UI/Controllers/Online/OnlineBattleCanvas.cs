@@ -1,12 +1,9 @@
-using System;
 using TMPro;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.VisualScripting;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
-using static BattleManager;
 
-public class BattleCanvas : MonoBehaviour
+public class OnlineBattleCanvas : NetworkBehaviour
 {
     [SerializeField]
     private Canvas battleCanvas;
@@ -32,6 +29,8 @@ public class BattleCanvas : MonoBehaviour
     private SpriteRenderer enemyBugSprite;
     [SerializeField]
     private Image enemyBugClass;
+    [SerializeField]
+    private OnlineBattleManager onlineBattleManager;
 
     private bool battleStarted = false;
 
@@ -53,13 +52,18 @@ public class BattleCanvas : MonoBehaviour
 
     private void Start()
     {
-       
+        if (!IsOwner)
+        {
+            this.enabled= false;
+            //Destroy(this);
+        }
     }
+
     private void Update()
     {
         if (!battleStarted) { return; }
-        UpdateHealthBar(BattleManager.instance.enemyBug[0].currentHP, enemyHpSlider);
-        UpdateHealthBar(PartyManager.instance.playerBugTeam[0].currentHP,playerHpSlider);
+        UpdateHealthBar(onlineBattleManager.enemyBug[0].currentHP, enemyHpSlider);
+        UpdateHealthBar(PartyManager.instance.playerBugTeam[0].currentHP, playerHpSlider);
     }
 
     //public void PlayerJoin()
@@ -70,7 +74,7 @@ public class BattleCanvas : MonoBehaviour
     //    enemyBugSprite.transform.parent.gameObject.SetActive(false);
     //}
 
-    private void OpenCanvas()
+    public void OpenCanvas()
     {
         UpdatePlayerInfo();
         UpdateEnemyInfo();
@@ -97,7 +101,8 @@ public class BattleCanvas : MonoBehaviour
 
     private void UpdateEnemyInfo()
     {
-        Bug enemyBug = BattleManager.instance.enemyBug[0];
+        Bug enemyBug = onlineBattleManager.enemyBug[0];
+        Debug.Log("called");
         enemyBugSprite.sprite = BugBox.instance.getBugModel(enemyBug.baseBugIndex, true);
         enemyName.text = BugBox.instance.GetBugName(enemyBug.baseBugIndex);
         enemyLvl.text = "Lvl " + enemyBug.lvl.ToString();
@@ -111,9 +116,9 @@ public class BattleCanvas : MonoBehaviour
         BugBox.instance.AddNewBug();
     }
 
-    private void UpdateHealthBar(int Health,Slider Healthbar)
+    private void UpdateHealthBar(int Health, Slider Healthbar)
     {
         int start = (int)Healthbar.value;
-        Healthbar.value = Mathf.Lerp(start, Health, .2f*Time.deltaTime);
+        Healthbar.value = Mathf.Lerp(start, Health, .2f * Time.deltaTime);
     }
 }

@@ -9,15 +9,15 @@ public class PlayerEncounterOnline : NetworkBehaviour
 
     private void OnEnable()
     {
-        EventManager.instance.OnStep.AddListener(PlayerStepTaken);
+        //EventManager.instance.OnStep.AddListener(PlayerStepTaken);
     }
 
     private void OnDisable()
     {
-        EventManager.instance.OnStep.RemoveListener(PlayerStepTaken);
+       // EventManager.instance.OnStep.RemoveListener(PlayerStepTaken);
     }
 
-    private void PlayerStepTaken()
+    public void PlayerStepTaken()
     {
         if (!IsOwner) { return; }
         if (!inGrass) { return; }

@@ -12,16 +12,13 @@ public class OnlineBattleUI : NetworkBehaviour
 
     private void Awake()
     {
-        if (IsOwner)
-        {
-            Destroy(playerBugSprite);
-            Destroy(enemyBugSprite);
-        }
+        if (!IsOwner) { return; }
+        Destroy(playerBugSprite);
+        Destroy(enemyBugSprite);
     }
 
-    private void Start()
+    private void Update()
     {
-        //gameObject.SetActive(false);
+     
     }
-
 }

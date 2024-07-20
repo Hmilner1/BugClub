@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BattleManager : MonoBehaviour
+public class OnlineBattleManager : NetworkBehaviour
 {
-    public static BattleManager instance;
+    public static OnlineBattleManager instance;
 
     public BattleState currentState;
 
@@ -36,6 +37,10 @@ public class BattleManager : MonoBehaviour
     [SerializeField]
     private Button catchButton;
 
+    [SerializeField]
+    private Canvas battleCanvas;
+    [SerializeField]
+    private OnlineBattleCanvas onlineBattleCanvas;
 
     private void OnEnable()
     {
@@ -57,23 +62,17 @@ public class BattleManager : MonoBehaviour
 
     private void Start()
     {
+        if (!IsOwner)
+        {
+            //Destroy(this);
+            this.enabled = false;
+
+        }
         currentState = BattleState.NON;
     }
 
-    public void SetCam()
-    {
-        Debug.Log("called Start");
-        battleCam = GameObject.Find("Battle Cam");
-        if (battleCam != null)
-        {
-            battleCam.SetActive(false);
-        }
-        battlePositions = GameObject.Find("BattlePositions");
-        Debug.Log("called end");
-    }
-
     public void PopulateTrainerTeam(List<Bug> Team)
-    { 
+    {
         enemyBug = Team;
     }
 
@@ -87,7 +86,7 @@ public class BattleManager : MonoBehaviour
             runButton.interactable = true;
             catchButton.interactable = true;
         }
-        else 
+        else
         {
             runButton.interactable = false;
             catchButton.interactable = false;
@@ -101,7 +100,9 @@ public class BattleManager : MonoBehaviour
     IEnumerator OpenBattle()
     {
         EventManager.instance.StopMovement();
-        EventManager.instance.OpenBattleCanvas();
+        //EventManager.instance.OpenBattleCanvas();
+        battleCanvas.enabled = true;
+        onlineBattleCanvas.OpenCanvas();
         battleCam.SetActive(true);
         battlePositions.SetActive(true);
         EventManager.instance.RefreshUI();
@@ -118,7 +119,8 @@ public class BattleManager : MonoBehaviour
         battleCam.SetActive(false);
         battlePositions.SetActive(false);
         EventManager.instance.StartMovement();
-        EventManager.instance.CloseBattleCanvas();
+        //EventManager.instance.CloseBattleCanvas();
+        battleCanvas.enabled= false;
     }
 
     private void OpenActionMenu()
@@ -286,7 +288,7 @@ public class BattleManager : MonoBehaviour
     private void SwapEnemyBug()
     {
         if (enemyBug.Count > 1)
-        { 
+        {
             Bug tempBug = enemyBug[0];
             for (int i = 0; i < enemyBug.Count; i++)
             {
@@ -307,7 +309,7 @@ public class BattleManager : MonoBehaviour
 
         if (playerBug[0].currentHP <= 0)
         {
-          
+
 
             playerBug[0] = PartyManager.instance.playerBugTeam[0];
             PartyCanvasController canvasController = PartyPanel.GetComponent<PartyCanvasController>();
@@ -317,7 +319,7 @@ public class BattleManager : MonoBehaviour
         }
         else
         {
-            
+
             playerBug[0] = PartyManager.instance.playerBugTeam[0];
             PartyCanvasController canvasController = PartyPanel.GetComponent<PartyCanvasController>();
             canvasController.RemoveBattleParty();
@@ -389,4 +391,5 @@ public class BattleManager : MonoBehaviour
         currentState = BattleState.NON;
         StopCoroutine(BattleEnd());
     }
+
 }

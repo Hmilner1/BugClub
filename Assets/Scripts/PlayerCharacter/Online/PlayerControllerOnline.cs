@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Networking;
@@ -28,6 +29,7 @@ public class PlayerControllerOnline : NetworkBehaviour
 
     public Animator m_Animator;
     public InputSystem_Actions playerControls;
+   
 
     private void Awake()
     {
@@ -44,6 +46,7 @@ public class PlayerControllerOnline : NetworkBehaviour
         transform.parent.position = new Vector3(-32, 1, 36);
         if (!IsOwner) { playerCam.SetActive(false); }
         base.OnNetworkSpawn();
+
     }
 
     private void OnEnable()
