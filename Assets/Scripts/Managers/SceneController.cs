@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Unity.Services.CloudSave.Models.Data.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,6 +25,11 @@ public class SceneController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Update()
+    {
+        progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 3 * Time.deltaTime);
     }
 
     public async void LoadScene(string sceneName)
@@ -125,8 +131,8 @@ public class SceneController : MonoBehaviour
         loadCanvas.SetActive(false);
     }
 
-    private void Update()
-    {
-        progressBar.fillAmount = Mathf.MoveTowards(progressBar.fillAmount, target, 3 * Time.deltaTime);
+    public void CloseApplication()
+    { 
+        Application.Quit();
     }
 }

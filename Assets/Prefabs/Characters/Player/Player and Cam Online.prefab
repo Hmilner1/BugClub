@@ -1733,8 +1733,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2593367689770138654}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15060882, y: 0, z: 0, w: 0.98859346}
-  m_LocalPosition: {x: 0, y: 2.597058, z: -8.01717}
+  m_LocalRotation: {x: 0.034819376, y: 0.9420341, z: -0.10337916, w: 0.3172887}
+  m_LocalPosition: {x: -6.4895463, y: 2.4729915, z: 8.560892}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1879,7 +1879,7 @@ MonoBehaviour:
     SplineCurvature: 0.5
   RecenteringTarget: 2
   HorizontalAxis:
-    Value: 0
+    Value: 137.33342
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -1889,7 +1889,7 @@ MonoBehaviour:
       Time: 2
     Restrictions: 0
   VerticalAxis:
-    Value: 17.5
+    Value: 16.756159
     Center: 17.5
     Range: {x: -10, y: 45}
     Wrap: 0
@@ -5678,7 +5678,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: 0}
+  m_AnchoredPosition: {x: -450, y: 0}
   m_SizeDelta: {x: 500, y: 150}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &873582389420054572
@@ -6593,7 +6593,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 226.1, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &595589166689511791
 CanvasRenderer:
@@ -6623,17 +6623,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Interact
+  m_text: E
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a6536f3f7433ba940a7196755b3e4a0b, type: 2}
+  m_sharedMaterial: {fileID: 4479620962887756609, guid: a6536f3f7433ba940a7196755b3e4a0b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4284045657
-  m_fontColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+    rgba: 4293261823
+  m_fontColor: {r: 1, g: 0.97647065, b: 0.8980393, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7034,7 +7034,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 250, y: -75}
-  m_SizeDelta: {x: 200, y: 100}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2231904818824663110
 CanvasRenderer:
@@ -7064,8 +7064,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 7395ec9904808d74fb83a21f11717c2a, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
