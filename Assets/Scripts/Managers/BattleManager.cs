@@ -35,6 +35,8 @@ public class BattleManager : MonoBehaviour
     private Button runButton;
     [SerializeField]
     private Button catchButton;
+    [SerializeField]
+    private GameObject Menu;
 
 
     private void OnEnable()
@@ -59,6 +61,18 @@ public class BattleManager : MonoBehaviour
     {
         currentState = BattleState.NON;
 
+    }
+
+    private void Update()
+    {
+        if (currentState == BattleState.NON)
+        {
+            Menu.SetActive(true);
+        }
+        else
+        { 
+            Menu.SetActive(false);
+        }
     }
 
     public void SetCam()

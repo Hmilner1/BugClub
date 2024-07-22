@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -18,6 +19,8 @@ public class PrivateMatchUIManager : MonoBehaviour
     private TMP_InputField clientJoinCode;
     [SerializeField]
     private GameObject playButton;
+    [SerializeField]
+    private Canvas matchmakingcanvas;
 
     private PrivateMatchMaker matchMaker;
 
@@ -39,9 +42,11 @@ public class PrivateMatchUIManager : MonoBehaviour
 
     public void OnClickHostButton()
     {
-        DisableMainButtonPanel();
-        hostPanel.SetActive(true);
-        playButton.SetActive(true);
+        //DisableMainButtonPanel();
+        //hostPanel.SetActive(true);
+        //playButton.SetActive(true);
+        matchmakingcanvas.enabled = false;
+        hostJoinCode.gameObject.SetActive(true);
     }
 
     public void OnClickClientPanel()

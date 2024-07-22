@@ -51,6 +51,7 @@ public class PartyManager : MonoBehaviour
     { 
         BugBox.instance.BugSwap(index1, index2);
         GetTeamFromSave();
+        BugBox.instance.CloudSaveBugs();
     }
 
 }

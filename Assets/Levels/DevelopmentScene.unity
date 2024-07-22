@@ -7414,31 +7414,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 163988618}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 12413437}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 12413442}
-        m_TargetAssemblyTypeName: PartyCanvasController, Assembly-CSharp
-        m_MethodName: UpdateParty
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &163988618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12172,8 +12148,8 @@ RectTransform:
   m_Children:
   - {fileID: 862204661}
   - {fileID: 1642316791}
-  - {fileID: 1085076600}
   - {fileID: 163988616}
+  - {fileID: 1085076600}
   m_Father: {fileID: 1118215589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1}
   m_AnchorMin: {x: 0, y: 1}
@@ -14632,7 +14608,7 @@ GameObject:
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &349252528
 Transform:
   m_ObjectHideFlags: 0
@@ -17471,7 +17447,7 @@ GameObject:
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &466258664
 Transform:
   m_ObjectHideFlags: 0
@@ -21050,6 +21026,7 @@ MonoBehaviour:
   PartyPanel: {fileID: 12413437}
   runButton: {fileID: 1544822244}
   catchButton: {fileID: 1907400116}
+  Menu: {fileID: 293589900}
 --- !u!4 &563786382 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5646206960422831584, guid: 6d2cd4e3f1223a542b15076c9a3b538b, type: 3}
@@ -32954,7 +32931,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &857468542
 Transform:
   m_ObjectHideFlags: 0
@@ -41052,31 +41029,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1085076602}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 12413437}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 12413442}
-        m_TargetAssemblyTypeName: PartyCanvasController, Assembly-CSharp
-        m_MethodName: UpdateParty
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1085076602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64858,7 +64811,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1468192078}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 501f6b41410b6fa4f8c7d5f06318dcdc, type: 3}
   m_Name: 
@@ -80548,7 +80501,7 @@ GameObject:
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1994168034
 Transform:
   m_ObjectHideFlags: 0
@@ -87121,7 +87074,7 @@ PrefabInstance:
       objectReference: {fileID: 507988020}
     - target: {fileID: 9154926638195527607, guid: a87a15243acc7fe49a2b0d389e282b5b, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
