@@ -14,6 +14,8 @@ public class PartyMemberTab : MonoBehaviour
     private GameObject ItemSelectionPanel;
     [SerializeField]
     private Canvas PartyCanvas;
+    [SerializeField]
+    private Slider health;
    
     
     [SerializeField]
@@ -49,6 +51,8 @@ public class PartyMemberTab : MonoBehaviour
     {
         bugSprite.sprite = BugBox.instance.getBugModel(PartyManager.instance.playerBugTeam[partyIndex].baseBugIndex,true);
         PopulateMoves();
+        health.maxValue = PartyManager.instance.playerBugTeam[partyIndex].HP;
+        health.value = PartyManager.instance.playerBugTeam[partyIndex].currentHP;
     }
 
     private void PopulateMoves()

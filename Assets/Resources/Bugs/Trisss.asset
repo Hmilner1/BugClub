@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc02b8b7025e8044c9b1f7d54a06e929, type: 3}
+  m_Name: Trisss
+  m_EditorClassIdentifier: 
+  bugName: Trisss
+  hp: 35
+  attack: 60
+  defence: 44
+  speed: 55
+  frontSprite: {fileID: 21300000, guid: d6abfc20c3d6753479da1451f98b36a8, type: 3}
+  backSprite: {fileID: 21300000, guid: de1dc0089e0df4942ad30dccff2c601e, type: 3}
+  description: 

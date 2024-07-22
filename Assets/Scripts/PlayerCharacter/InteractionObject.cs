@@ -6,7 +6,9 @@ public class InteractionObject : MonoBehaviour
     [SerializeField]
     public InteractionType typeOfInteration;
     private bool isActive;
-
+    [SerializeField]
+    private Canvas interactCanvas;
+    
     public enum InteractionType
     { 
         Heal,
@@ -17,6 +19,7 @@ public class InteractionObject : MonoBehaviour
     private void Start()
     {
         isActive = false;
+        interactCanvas.enabled = false;
     }
 
     private void OnEnable()
@@ -35,6 +38,7 @@ public class InteractionObject : MonoBehaviour
         {
             EventManager.instance.InteractOverlap();
             isActive = true;
+            interactCanvas.enabled = true;
         }
     }
 
@@ -42,6 +46,7 @@ public class InteractionObject : MonoBehaviour
     {
         EventManager.instance.InteractStop();
         isActive = false;
+        interactCanvas.enabled = false;
     }
 
     private void Interact()

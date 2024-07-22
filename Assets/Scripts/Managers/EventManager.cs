@@ -32,6 +32,7 @@ public class EventManager : MonoBehaviour
     public CustomAttack OnPreformAttack = new CustomAttack();
     public UnityEvent OnInteract;
     public UnityEvent OnPlayerLost;
+    public UnityEvent OnSettingsUpdated;
     #endregion
 
     #region UI Events
@@ -139,5 +140,10 @@ public class EventManager : MonoBehaviour
     public void PlayerLost()
     { 
         OnPlayerLost?.Invoke();
+    }
+
+    public void SettingsUpdated()
+    {
+        OnSettingsUpdated?.Invoke();
     }
 }

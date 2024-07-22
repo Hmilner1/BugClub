@@ -58,6 +58,7 @@ public class BattleManager : MonoBehaviour
     private void Start()
     {
         currentState = BattleState.NON;
+
     }
 
     public void SetCam()
@@ -94,10 +95,17 @@ public class BattleManager : MonoBehaviour
             battleText.text = "You Are Challenged To A Bug Battle!";
         }
         currentState = BattleState.start;
+        UpdateBattleSped();
         playerBug = PartyManager.instance.playerBugTeam;
         StartCoroutine(OpenBattle());
     }
 
+    private void UpdateBattleSped()
+    {
+        SettingsData data = SettingsManager.Instance.LoadData();
+
+        battleSpeed = data.BattleSpeed;
+    }
     IEnumerator OpenBattle()
     {
         EventManager.instance.StopMovement();
