@@ -13,8 +13,8 @@ public class PrivateMatchUIManager : MonoBehaviour
     private GameObject hostPanel;
     [SerializeField]
     private GameObject clientPanel;
-    [SerializeField]
-    private TextMeshProUGUI hostJoinCode;
+    //[SerializeField]
+    //private TextMeshProUGUI hostJoinCode;
     [SerializeField]
     private TMP_InputField clientJoinCode;
     [SerializeField]
@@ -40,15 +40,7 @@ public class PrivateMatchUIManager : MonoBehaviour
         matchMaker = GameObject.FindAnyObjectByType<PrivateMatchMaker>();
     }
 
-    public void OnClickHostButton()
-    {
-        //DisableMainButtonPanel();
-        //hostPanel.SetActive(true);
-        //playButton.SetActive(true);
-        matchmakingcanvas.enabled = false;
-        hostJoinCode.gameObject.SetActive(true);
-    }
-
+ 
     public void OnClickClientPanel()
     {
         DisableMainButtonPanel();
@@ -68,6 +60,13 @@ public class PrivateMatchUIManager : MonoBehaviour
 
     private void DisplayJoinCode(string JoinCode)
     {
-        hostJoinCode.text = "JOIN CODE: " + JoinCode;
+        TMP_Text text = GameObject.FindGameObjectWithTag("JoinCode").GetComponent<TMP_Text>();
+        text.text = "JOIN CODE: " + JoinCode;
+        DisableUI();
+    }
+
+    private void DisableUI()
+    {
+        SceneController.Instance.UnLoadScene("Multiplayer Lobby");
     }
 }

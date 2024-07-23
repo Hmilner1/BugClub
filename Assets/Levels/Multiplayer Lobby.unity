@@ -184,7 +184,6 @@ MonoBehaviour:
   buttonPanel: {fileID: 90300459}
   hostPanel: {fileID: 379652425}
   clientPanel: {fileID: 54467524}
-  hostJoinCode: {fileID: 841932963}
   clientJoinCode: {fileID: 517251403}
   playButton: {fileID: 1560306636}
   matchmakingcanvas: {fileID: 1167462753}
@@ -1084,24 +1083,32 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6171656071584069899, guid: 23b3272f20b602e45a48951312804a6f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 96881094}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6171656071584069899, guid: 23b3272f20b602e45a48951312804a6f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 96881095}
     - target: {fileID: 6171656071584069899, guid: 23b3272f20b602e45a48951312804a6f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClickHostButton
-      objectReference: {fileID: 0}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 96881094}
     - target: {fileID: 6171656071584069899, guid: 23b3272f20b602e45a48951312804a6f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnHostGame
       objectReference: {fileID: 0}
     - target: {fileID: 6171656071584069899, guid: 23b3272f20b602e45a48951312804a6f, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnClickHostButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171656071584069899, guid: 23b3272f20b602e45a48951312804a6f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: PrivateMatchMaker, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6171656071584069899, guid: 23b3272f20b602e45a48951312804a6f, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PrivateMatchUIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6256622346236465218, guid: 23b3272f20b602e45a48951312804a6f, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag

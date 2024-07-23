@@ -56,6 +56,12 @@ public class SceneController : MonoBehaviour
         loadCanvas.SetActive(false);
     }
 
+    public void MakeActive(string sceneName)
+    {
+        Scene scene = SceneManager.GetSceneByName(sceneName);
+        SceneManager.SetActiveScene(scene);
+    }
+
     public async void LoadMainGame()
     {
         target = 0;

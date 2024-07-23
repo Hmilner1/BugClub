@@ -52,9 +52,6 @@ public class PrivateMatchMaker : MonoBehaviour
 
         networkManagerTransport.SetHostRelayData(allocation.RelayServer.IpV4, (ushort)allocation.RelayServer.Port, allocation.AllocationIdBytes, allocation.Key, allocation.ConnectionData);
         NetworkManager.Singleton.StartHost();
-      //  BattleManager.instance.SetCam();
-      //  BattleCanvas battleCanvas = GameObject.Find("BattleCanvas").GetComponent<BattleCanvas>();
-       // battleCanvas.PlayerJoin();
     }
 
     public void SetClientJoinCode(string JoinCode)
@@ -68,8 +65,5 @@ public class PrivateMatchMaker : MonoBehaviour
         networkManagerTransport.SetClientRelayData(joinAllocation.RelayServer.IpV4, (ushort)joinAllocation.RelayServer.Port, joinAllocation.AllocationIdBytes, joinAllocation.Key, joinAllocation.ConnectionData, joinAllocation.HostConnectionData);
         NetworkManager.Singleton.StartClient();
         SceneController.Instance.UnLoadScene("Multiplayer Lobby");
-        //BattleManager.instance.SetCam();
-       // BattleCanvas battleCanvas = GameObject.Find("BattleCanvas").GetComponent<BattleCanvas>();
-        //battleCanvas.PlayerJoin();
     }
 }

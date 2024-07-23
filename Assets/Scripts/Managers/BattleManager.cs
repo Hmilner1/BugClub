@@ -248,7 +248,7 @@ public class BattleManager : MonoBehaviour
     {
         if (playerBug[0].currentHP <= 0)
         {
-            battleText.text = BugBox.instance.GetBugName(playerBug[0].baseBugIndex) + "Has Been KnockedOut";
+            battleText.text = BugBox.instance.GetBugName(playerBug[0].baseBugIndex) + " Has Been KnockedOut";
             if (!EndCheck())
             {
                 PartyPanel.SetActive(true);
@@ -259,7 +259,7 @@ public class BattleManager : MonoBehaviour
         }
         else if (enemyBug[0].currentHP <= 0)
         {
-            battleText.text = BugBox.instance.GetBugName(enemyBug[0].baseBugIndex) + "Has Been KnockedOut";
+            battleText.text = BugBox.instance.GetBugName(enemyBug[0].baseBugIndex) + " Has Been KnockedOut";
             if (!EndCheck())
             {
                 SwapEnemyBug();

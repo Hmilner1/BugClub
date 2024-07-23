@@ -56,7 +56,7 @@ public class InteractionObject : MonoBehaviour
         if (typeOfInteration == InteractionType.Heal)
         {
             BugBox.instance.HealAll();
-
+            BugBox.instance.CloudSaveBugs();
         }
         else if (typeOfInteration == InteractionType.Online)
         {

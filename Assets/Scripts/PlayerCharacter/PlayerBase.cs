@@ -9,11 +9,14 @@ public class PlayerBase
     public float y;
     public float z;
 
-    public PlayerBase(float newx, float newy, float newz)
+    public int itemAmount;
+
+    public PlayerBase(float newx, float newy, float newz, int iAmount)
     {
-        x= newx;
-        y= newy;
-        z= newz;
-        basePlayerLocation = new Vector3(x,y,z);
+        basePlayerLocation = new Vector3(x, y, z);
+        x = newx;
+        y = newy;
+        z = newz;
+        itemAmount = iAmount;
     }
 }
