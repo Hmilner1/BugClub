@@ -8,12 +8,14 @@ public class InteractionObject : MonoBehaviour
     private bool isActive;
     [SerializeField]
     private Canvas interactCanvas;
-    
+    [SerializeField]
+    private GameObject QuestCanvas;
+
     public enum InteractionType
     { 
         Heal,
         Online,
-        Dialogue
+        Quest
     }
 
     private void Start()
@@ -62,6 +64,10 @@ public class InteractionObject : MonoBehaviour
         {
             SceneController.Instance.LoadScene("MultiplayerScene");
             SceneController.Instance.LoadSceneAdditive("Multiplayer Lobby");
+        }
+        else if (typeOfInteration == InteractionType.Quest)
+        {
+            QuestCanvas.SetActive(true);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Unity.Netcode;
 using Unity.Services.CloudSave.Models.Data.Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -64,6 +65,10 @@ public class SceneController : MonoBehaviour
 
     public async void LoadMainGame()
     {
+        if (NetworkManager.Singleton != null)
+        { 
+            Destroy(NetworkManager.Singleton.transform.gameObject);
+        }
         target = 0;
         progressBar.fillAmount = 0;
 

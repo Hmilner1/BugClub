@@ -33,6 +33,9 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnInteract;
     public UnityEvent OnPlayerLost;
     public UnityEvent OnSettingsUpdated;
+    public UnityEvent OnCatchBug;
+    public UnityEvent OnBeatBug;
+
     #endregion
 
     #region UI Events
@@ -145,5 +148,15 @@ public class EventManager : MonoBehaviour
     public void SettingsUpdated()
     {
         OnSettingsUpdated?.Invoke();
+    }
+
+    public void BugCaught()
+    {
+        OnCatchBug?.Invoke();
+    }
+
+    public void BugBeat()
+    {
+        OnBeatBug?.Invoke();
     }
 }

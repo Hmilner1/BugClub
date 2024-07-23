@@ -6,7 +6,6 @@ public class HostDisconnect : NetworkBehaviour
 {
     private void Start()
     {
-        // Subscribe to the host disconnection event (only on clients)
         if (!IsServer)
         {
             NetworkManager.Singleton.OnClientDisconnectCallback += HandleHostDisconnect;
@@ -15,14 +14,13 @@ public class HostDisconnect : NetworkBehaviour
 
     private void HandleHostDisconnect(ulong clientId)
     {
-        if (clientId != NetworkManager.Singleton.LocalClientId) // Check if it's the host
+        if (clientId != NetworkManager.Singleton.LocalClientId)
         {
-            // Load the new scene (replace "NewSceneName" with your actual scene name)
+            NetworkManager.Singleton.Shutdown();
             SceneController.Instance.LoadMainGame();
         }
     }
 
-    // Unsubscribe from the event when the component is destroyed to prevent memory leaks
     private void OnDestroy()
     {
         if (NetworkManager.Singleton != null && !IsServer)
