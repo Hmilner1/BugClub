@@ -29,6 +29,10 @@ public class EncounterCalculator : MonoBehaviour
         if (other.tag == "Grass")
         {
             inGrass = true;
+            EncounterTable table = other.GetComponent<EncounterTable>();
+            EncounterManager encounterMan = GameObject.Find("EncounterManager").GetComponent<EncounterManager>();
+            encounterMan.UpdateBugList(table.Encouters);
+            encounterMan.UpdateMaxLvl(table.MinLvl, table.MaxLvl);
         }
     }
 

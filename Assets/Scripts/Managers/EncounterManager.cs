@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EncounterManager : MonoBehaviour
@@ -5,6 +6,10 @@ public class EncounterManager : MonoBehaviour
     [SerializeField]
     private BugDataBase bugDataBase;
     private BattleItem[] battleItems = new BattleItem[4];
+    private List<Bug> encounterableBugs;
+    private int MinLvl;
+    private int MaxLvl;
+
 
     private void OnEnable()
     {
@@ -14,6 +19,17 @@ public class EncounterManager : MonoBehaviour
     private void OnDisable()
     {
         EventManager.instance.OnBattle.RemoveListener(BattleStarted);
+    }
+
+    public void UpdateBugList(List<Bug> bugs)
+    {
+        encounterableBugs = bugs;
+    }
+
+    public void UpdateMaxLvl(int minLvl, int maxLvl)
+    {
+        MinLvl = minLvl;
+        MaxLvl = maxLvl;
     }
 
     private void BattleStarted(bool wild)
@@ -30,13 +46,14 @@ public class EncounterManager : MonoBehaviour
 
     private int GenererateBugIndex()
     {
-        int index = Random.Range(0, bugDataBase.bugDataBase.Count);
-        return index;
+        int index = Random.Range(0, encounterableBugs.Count);
+        int bugindex = encounterableBugs[index].baseBugIndex;
+        return bugindex;
     }
 
     public int GenerateBugLvl()
     {
-        int lvl = Random.Range(3, 10);
+        int lvl = Random.Range(MinLvl, MaxLvl);
         return lvl;
     }
 

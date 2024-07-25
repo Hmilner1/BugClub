@@ -240,6 +240,7 @@ public class OnlineBattleManager : NetworkBehaviour
         else if (enemyBug[0].currentHP <= 0)
         {
             battleText.text = BugBox.instance.GetBugName(enemyBug[0].baseBugIndex) + "Has Been KnockedOut";
+            EventManager.instance.BugBeat();
             if (!EndCheck())
             {
                 SwapEnemyBug();
@@ -354,6 +355,7 @@ public class OnlineBattleManager : NetworkBehaviour
         CloseActionMenu();
         BugBox.instance.AddNewBug();
         battleText.text = "You Obtained " + BugBox.instance.GetBugName(enemyBug[0].baseBugIndex);
+        EventManager.instance.BugCaught();
         yield return new WaitForSeconds(battleSpeed);
         OnBattleEnd();
         StopCoroutine(Catch());

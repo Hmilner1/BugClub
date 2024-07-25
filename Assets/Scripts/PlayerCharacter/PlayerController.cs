@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerControls = new InputSystem_Actions();
-        Application.targetFrameRate = 120;
         characterController = GetComponent<CharacterController>();
         canMove = true;
         canInteract = false;

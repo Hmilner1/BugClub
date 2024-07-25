@@ -37,6 +37,9 @@ public class AccountManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        var data = SettingsManager.Instance.LoadData();
+        Application.targetFrameRate = data.FPS;
+
         await UnityServices.InitializeAsync();
         PlayerAccountService.Instance.SignedIn += SignInWithUnity;
         await SignInAsync();

@@ -131,27 +131,41 @@ public class QuestHolder : MonoBehaviour
     {
         if (button == 1)
         {
-            int itemAmount = PlayerInfo.instance.ItemAmount();
-            PlayerInfo.instance.Player.itemAmount = itemAmount + quest1.JellyReward;
-            PlayerInfo.instance.SaveItemAmount();
+            if (QuestTracker.instance == null)
+            {
+                int itemAmount = PlayerInfo.instance.ItemAmount();
+                PlayerInfo.instance.Player.itemAmount = itemAmount + quest1.JellyReward;
+                PlayerInfo.instance.SaveItemAmount();
+            }
             quest1.QuestType.currentAmount = 0;
             quest1 = null;
             quest1Name.text = "";
             quest1Desc.text = "";
             quest1Reward.text = "";
             handInButton1.interactable = false;
+
+            if (QuestTracker.instance == null) { return; }
+
+            QuestTracker.instance.UpdateQuest();
         }
         else if (button == 2)
         {
-            int itemAmount = PlayerInfo.instance.ItemAmount();
-            PlayerInfo.instance.Player.itemAmount = itemAmount + quest2.JellyReward;
-            PlayerInfo.instance.SaveItemAmount();
+            if (QuestTracker.instance == null)
+            {
+                int itemAmount = PlayerInfo.instance.ItemAmount();
+                PlayerInfo.instance.Player.itemAmount = itemAmount + quest2.JellyReward;
+                PlayerInfo.instance.SaveItemAmount();
+            }
             quest2.QuestType.currentAmount = 0;
             quest2 = null;
             quest2Name.text = "";
             quest2Desc.text = "";
             quest2Reward.text = "";
             handInButton2.interactable = false;
+
+            if (QuestTracker.instance == null) { return; }
+
+            QuestTracker.instance.UpdateQuest();
         }
     }
 }

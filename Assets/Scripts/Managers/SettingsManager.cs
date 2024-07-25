@@ -24,7 +24,7 @@ public class SettingsManager : MonoBehaviour
         data = LocalSaveManager.LoadSettings();
         if (data == null)
         {
-            data = new SettingsData(true, 0.5f, 0.25f, 1f);
+            data = new SettingsData(true, 0.5f, 0.25f, 144, 1f);
             SetAndSaveSettings(data);
             return data;
         }
