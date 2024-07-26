@@ -19,27 +19,36 @@ public class PlayerInfo : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        loadData();
+        loadData(true);
     }
 
-    public async void loadData()
+    public async void loadData(bool start)
     {
         if (Player == null)
         {
             Player = new PlayerBase(MainSpawn.x, MainSpawn.y, MainSpawn.z, 0);
         }
         CloudSaveManager.instance.LoadPlayerSave();
-        await Task.Delay(1000);
+        if (start)
+        {
+            await Task.Delay(600);
+            SetPosition();
+        }
+    }
+
+    public void SetPosition()
+    {
         playerPos.position = new Vector3(Player.x, Player.y, Player.z);
     }
 
     public int ItemAmount()
     {
-        loadData();
+        loadData(false);
         return Player.itemAmount;
     }
-    public void SaveItemAmount()
+    public void SaveItemAmount(int amount)
     {
+        Player.itemAmount = amount;
         CloudSaveManager.instance.SavePlayerData(Player);
     }
 

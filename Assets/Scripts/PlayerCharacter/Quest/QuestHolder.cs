@@ -179,7 +179,8 @@ public class QuestHolder : MonoBehaviour
             if (QuestTracker.instance == null)
             {
                 int itemAmount = PlayerInfo.instance.ItemAmount();
-                PlayerInfo.instance.Player.itemAmount = itemAmount + quest1.JellyReward;
+                itemAmount = itemAmount + quest1.JellyReward;
+                PlayerInfo.instance.SaveItemAmount(itemAmount);
             }
             quest1.QuestType.currentAmount = 0;
             quest1 = null;

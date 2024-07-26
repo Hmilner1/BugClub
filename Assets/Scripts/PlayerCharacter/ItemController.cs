@@ -66,7 +66,7 @@ public class ItemController : MonoBehaviour
             BugBox.instance.CloudSaveBugs();
             Amount = Amount - 1;
             PlayerInfo.instance.Player.itemAmount = Amount;
-            PlayerInfo.instance.SaveItemAmount();
+            PlayerInfo.instance.SaveItemAmount(Amount);
             UpdateUI();
         }
     }
