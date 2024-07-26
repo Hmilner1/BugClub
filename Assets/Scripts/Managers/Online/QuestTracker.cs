@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using Unity.Netcode;
 using UnityEngine;
@@ -49,6 +50,8 @@ public class QuestTracker : NetworkBehaviour
             amountText.text = "COMPLETE";
             Destroy(objectToRemove);
             Light.SetActive(true);
+            AudioMan.instance.PlaySfx(1);
+
         }
     }
 

@@ -30,6 +30,9 @@ public class QuestHolder : MonoBehaviour
     {
         EventManager.instance.OnBeatBug.AddListener(Battle);
         EventManager.instance.OnCatchBug.AddListener(Capture);
+        EventManager.instance.OnEnterCity.AddListener(GotoCity);
+        EventManager.instance.OnEnterDungeon.AddListener(GotoDungeon);
+
 
 
         UpdateQuestUI();
@@ -39,6 +42,10 @@ public class QuestHolder : MonoBehaviour
     {
         EventManager.instance.OnBeatBug.RemoveListener(Battle);
         EventManager.instance.OnCatchBug.RemoveListener(Capture);
+        EventManager.instance.OnEnterCity.RemoveListener(GotoCity);
+        EventManager.instance.OnEnterDungeon.RemoveListener(GotoDungeon);
+
+
     }
 
     private void Battle()
@@ -75,6 +82,44 @@ public class QuestHolder : MonoBehaviour
             if (quest2.QuestType.questType == Type.Capture)
             {
                 quest2.QuestType.Captured();
+            }
+        }
+    }
+
+    private void GotoCity()
+    {
+        if (quest1 != null)
+        {
+            if (quest1.QuestType.questType == Type.GoTo)
+            {
+                quest1.QuestType.GoToCity();
+            }
+        }
+
+        if (quest2 != null)
+        {
+            if (quest2.QuestType.questType == Type.GoTo)
+            {
+                quest2.QuestType.GoToCity();
+            }
+        }
+    }
+
+    private void GotoDungeon()
+    {
+        if (quest1 != null)
+        {
+            if (quest1.QuestType.questType == Type.GoTo)
+            {
+                quest1.QuestType.GoToDungeon();
+            }
+        }
+
+        if (quest2 != null)
+        {
+            if (quest2.QuestType.questType == Type.Capture)
+            {
+                quest2.QuestType.GoToDungeon();
             }
         }
     }
@@ -135,7 +180,6 @@ public class QuestHolder : MonoBehaviour
             {
                 int itemAmount = PlayerInfo.instance.ItemAmount();
                 PlayerInfo.instance.Player.itemAmount = itemAmount + quest1.JellyReward;
-                PlayerInfo.instance.SaveItemAmount();
             }
             quest1.QuestType.currentAmount = 0;
             quest1 = null;
@@ -154,7 +198,6 @@ public class QuestHolder : MonoBehaviour
             {
                 int itemAmount = PlayerInfo.instance.ItemAmount();
                 PlayerInfo.instance.Player.itemAmount = itemAmount + quest2.JellyReward;
-                PlayerInfo.instance.SaveItemAmount();
             }
             quest2.QuestType.currentAmount = 0;
             quest2 = null;

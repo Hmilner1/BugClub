@@ -25,7 +25,6 @@ public class BugBox : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log(Application.persistentDataPath);
         if (instance == null)
         {
             instance = this;

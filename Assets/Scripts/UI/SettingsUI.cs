@@ -69,6 +69,15 @@ public class SettingsUI : MonoBehaviour
         int fpsInt = (int)FPS.value;
         fpsText.text = fpsInt.ToString();
         Application.targetFrameRate = (int)FPS.value;
+    }
 
+    public void OnMusicChanged()
+    {
+        AudioMan.instance.UpdateMusicSource(Music.value);
+    }
+
+    public void OnSfxChanged()
+    { 
+        AudioMan.instance.UpdateSfxSource(SFX.value);
     }
 }

@@ -88,6 +88,7 @@ public class SceneController : MonoBehaviour
         scene.allowSceneActivation = true;
         await Task.Delay(1400);
         loadCanvas.SetActive(false);
+        AudioMan.instance.PlayMusic(0);
 
         PartyManager party = GameObject.Find("BugBoxManager").GetComponent<PartyManager>();
         party.enabled = true;

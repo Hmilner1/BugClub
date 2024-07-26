@@ -35,6 +35,9 @@ public class EventManager : MonoBehaviour
     public UnityEvent OnSettingsUpdated;
     public UnityEvent OnCatchBug;
     public UnityEvent OnBeatBug;
+    public UnityEvent OnEnterCity;
+    public UnityEvent OnEnterDungeon;
+
 
     #endregion
 
@@ -158,5 +161,15 @@ public class EventManager : MonoBehaviour
     public void BugBeat()
     {
         OnBeatBug?.Invoke();
+    }
+
+    public void EnterCity()
+    { 
+        OnEnterCity?.Invoke();
+    }
+
+    public void EnterDungeon()
+    { 
+        OnEnterDungeon?.Invoke();
     }
 }

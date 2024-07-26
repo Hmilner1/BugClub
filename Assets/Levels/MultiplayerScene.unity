@@ -16501,6 +16501,10 @@ PrefabInstance:
       propertyPath: holder
       value: 
       objectReference: {fileID: 806738490}
+    - target: {fileID: 8738362845606517537, guid: 69805742ab151eb4088379734302f9f7, type: 3}
+      propertyPath: possibleQuests.Array.data[1].QuestType.amountNeeded
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8942901019451641265, guid: 69805742ab151eb4088379734302f9f7, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -55800,7 +55804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03b80d80ed91bad428ecb7f19933a646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountNeeded: 5
+  amountNeeded: 1
   objectToRemove: {fileID: 817552998}
   Light: {fileID: 782741891}
   amountText: {fileID: 147739712}

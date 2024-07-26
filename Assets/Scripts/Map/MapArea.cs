@@ -13,6 +13,15 @@ public class MapArea : MonoBehaviour
         {
             spawnPos = spawnLocation.position;
             AreaManager.instance.UpdateMapLocation(spawnPos);
+            if (gameObject.name == "City")
+            {
+                EventManager.instance.EnterCity();
+            }
+
+            if (gameObject.name == "dungeon")
+            {
+                EventManager.instance.EnterDungeon();
+            }
         }
     }
 }

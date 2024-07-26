@@ -109,6 +109,7 @@ public class BattleManager : MonoBehaviour
             battleText.text = "You Are Challenged To A Bug Battle!";
         }
         currentState = BattleState.start;
+        AudioMan.instance.PlayMusic(2);
         UpdateBattleSped();
         playerBug = PartyManager.instance.playerBugTeam;
         StartCoroutine(OpenBattle());
@@ -213,10 +214,12 @@ public class BattleManager : MonoBehaviour
         //Turn 2 
         if (!KnockoutCheck())
         {
+            AudioMan.instance.PlaySfx(2);
             battleText.text = BugBox.instance.GetBugName(TurnTwoBug.baseBugIndex) + " Used " + TurnTwo.Name;
             damageToDeal = ((0.5f * TurnTwo.Damage * TurnTwoBug.Attack) / TurnOneBug.Defence);
             TurnOneBug.currentHP = TurnOneBug.currentHP - (int)damageToDeal;
             if (KnockoutCheck()) { StopCoroutine(PreformAttacks(TurnOneBug, TurnTwoBug, TurnOne, TurnTwo)); }
+
         }
 
 
@@ -408,8 +411,8 @@ public class BattleManager : MonoBehaviour
         currentState = BattleState.battleEnd;
         moveSelector.SetActive(false);
         yield return new WaitForSeconds(battleSpeed);
-
         OverWorld();
+        AudioMan.instance.PlayMusic(0);
         currentState = BattleState.NON;
         StopCoroutine(BattleEnd());
     }

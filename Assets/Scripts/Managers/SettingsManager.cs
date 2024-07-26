@@ -4,6 +4,9 @@ public class SettingsManager : MonoBehaviour
 {
     public static SettingsManager Instance;
     private SettingsData data;
+    [SerializeField]
+    private GameObject audioManager;
+
 
     void Awake()
     {
@@ -17,6 +20,9 @@ public class SettingsManager : MonoBehaviour
             Destroy(gameObject);
         }
         LoadData();
+
+        Instantiate(audioManager);
+
     }
 
     public SettingsData LoadData()

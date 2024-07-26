@@ -4,6 +4,8 @@ using UnityEngine;
 public class QuestType
 {
     public Type questType;
+    public Zone zoneType;
+
 
     public int amountNeeded;
     public int currentAmount;
@@ -28,10 +30,42 @@ public class QuestType
             currentAmount++;
         }
     }
+
+    public void GoToCity()
+    {
+        if (questType == Type.GoTo)
+        {
+            if (zoneType == Zone.City)
+            {
+                currentAmount++;
+            }
+        }
+    }
+
+    public void GoToDungeon()
+    {
+        if (questType == Type.GoTo)
+        {
+            if (zoneType == Zone.Dungeon)
+            {
+                currentAmount++;
+            }
+        }
+    }
+
 }
 
 public enum Type
 { 
     Capture,
-    Kill
+    Kill,
+    GoTo
 }
+
+public enum Zone
+{
+    NON,
+    City,
+    Dungeon
+}
+
